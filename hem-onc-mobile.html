@@ -3657,512 +3657,1967 @@ const PROTOCOLS = [
   // GU — Urothelial / Bladder Cancer
   // =========================================================
 
+  // =========================================================
+  // GU — Urothelial / Bladder Cancer
+  // =========================================================
+
+// GU — UROTHELIAL / BLADDER CANCER
   {
-    key:"GU-GC-Uro", cat:"GU", bcc:true,
-    name:"Gemcitabine + CISplatin [Urothelial — Neoadj / Adj / 1st Line]",
-    cycle:21,
-    notes:"Cisplatin-eligible urothelial carcinoma. Neoadjuvant ×4, adjuvant ×4, or 1st-line advanced ×6 max. Split-dose cisplatin option: 35 mg/m² Days 1+2 or Days 1+8. BC Cancer GUNAJPG / GUAJPG / GUAVPG.",
-    drugs:[
-      { name:"Gemcitabine", dose:1250, unit:"mg/m²", basis:"bsa", max:null, route:"IV over 30 min",   days:"Days 1, 8", reducible:true },
-      { name:"CISplatin",   dose:70,   unit:"mg/m²", basis:"bsa", max:null, route:"IV",               days:"Day 1",     reducible:true, note:"Alternative split-dose: 35 mg/m² Days 1+2 or Days 1+8" }
-    ]
+    key: "GU-GUAVPG",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVPG - Gemcitabine + CISplatin [Urothelial — Palliative]",
+    cycle: 21,
+    notes: "First-line treatment for advanced or metastatic urothelial carcinoma. CISplatin may be replaced with CARBOplatin AUC 5 for patients with CrCl 45–59 mL/min or other CISplatin contraindications (reduce gemcitabine to 1000 mg/m²).",
+    drugs: [
+      { name:"Gemcitabine", dose:1250, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 250 mL NS over 30 min", days:"Days 1, 8", reducible:true, note:null },
+      { name:"CISplatin", dose:70, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 500 mL NS over 1 h (with prehydration)", days:"Day 1", reducible:true, note:"Split-dose option: 35 mg/m² Days 1+2 or Days 1+8 if CrCl 45–59 mL/min" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "platelets", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin"],
+      cycle: ["CBC & Diff", "platelets", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin"],
+      conditional: [{ label:"Day 8", tests:["CBC & Diff", "platelets", "creatinine"] }],
+    },
   },
   {
-    key:"GU-GCarbo-Uro", cat:"GU", bcc:true,
-    name:"Gemcitabine + CARBOplatin [Urothelial — Cisplatin-Ineligible]",
-    cycle:21,
-    notes:"For cisplatin-ineligible patients. Advanced UC (×6 max) or adjuvant. Carboplatin AUC 5 by Calvert formula. BC Cancer GUAVPG / GUAJPG (carboplatin option).",
-    drugs:[
-      { name:"Gemcitabine", dose:1250, unit:"mg/m²", basis:"bsa", max:null, route:"IV over 30 min",    days:"Days 1, 8", reducible:true },
-      { name:"CARBOplatin", dose:5,    unit:"AUC",   basis:"auc", max:null, route:"IV over 30–60 min", days:"Day 1",     reducible:false, note:"Calvert formula. CrCl capped at 125 mL/min." }
-    ]
+    key: "GU-GUNAJPG",
+    cat: "GU",
+    bcc: true,
+    name: "GUNAJPG - Gemcitabine + CISplatin [Urothelial — Neoadjuvant]",
+    cycle: 21,
+    notes: "Neoadjuvant chemotherapy for muscle-invasive urothelial cancer prior to cystectomy. Plan 4 cycles maximum prior to surgery. Preferred regimen is GUBDDMVAC; GUNAJPG used when dd-MVAC is contraindicated.",
+    drugs: [
+      { name:"Gemcitabine", dose:1250, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 250 mL NS over 30 min", days:"Days 1, 8", reducible:true, note:null },
+      { name:"CISplatin", dose:70, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 500 mL NS over 1 h (with prehydration)", days:"Day 1", reducible:true, note:"Split-dose option: 35 mg/m² Days 1+8 if CrCl 45–59 mL/min" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "baseline bladder and pelvis imaging"],
+      cycle: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase"],
+      conditional: [{ label:"Day 8", tests:["CBC & Diff", "platelets", "creatinine"] }],
+    },
   },
   {
-    key:"GU-ddMVAC", cat:"GU", bcc:true,
-    name:"Dose-Dense MVAC + G-CSF [Urothelial — Neoadj / Palliative]",
-    cycle:14,
-    notes:"Preferred over classic MVAC. Neoadjuvant ×3 or palliative ×4 cycles. G-CSF mandatory Days 4–10. BC Cancer GUBDDMVAC.",
-    drugs:[
-      { name:"Methotrexate", dose:30, unit:"mg/m²", basis:"bsa",    max:null, route:"IV",         days:"Day 1",  reducible:true },
-      { name:"Vinblastine",  dose:3,  unit:"mg/m²", basis:"bsa",    max:null, route:"IV",         days:"Day 2",  reducible:true },
-      { name:"DOXOrubicin",  dose:30, unit:"mg/m²", basis:"bsa",    max:null, route:"IV",         days:"Day 2",  reducible:true },
-      { name:"CISplatin",    dose:70, unit:"mg/m²", basis:"bsa",    max:null, route:"IV",         days:"Day 2",  reducible:true },
-      { name:"Filgrastim",   dose:5,  unit:"mcg/kg", basis:"weight", max:null, route:"SC daily",  days:"Days 4–10", reducible:false, note:"G-CSF mandatory; weight-based" }
-    ]
+    key: "GU-GUAJPG",
+    cat: "GU",
+    bcc: true,
+    name: "GUAJPG - Gemcitabine + CISplatin [Urothelial — Adjuvant]",
+    cycle: 21,
+    notes: "Adjuvant chemotherapy (4 cycles) for high-risk muscle-invasive urothelial carcinoma after radical cystectomy. CARBOplatin AUC 5 + gemcitabine 1000 mg/m² may substitute if CISplatin contraindicated.",
+    drugs: [
+      { name:"Gemcitabine", dose:1250, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 250 mL NS over 30 min", days:"Days 1, 8", reducible:true, note:null },
+      { name:"CISplatin", dose:70, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 500 mL NS over 1 h (with prehydration)", days:"Day 1", reducible:true, note:"Split-dose: 35 mg/m² Days 1+8 if CrCl 45–59; CARBOplatin AUC 5 option if CISplatin contraindicated" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase"],
+      cycle: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase"],
+      conditional: [{ label:"Day 8", tests:["CBC & Diff", "platelets", "creatinine"] }],
+    },
   },
   {
-    key:"GU-MVAC", cat:"GU", bcc:true,
-    name:"MVAC [Urothelial — Classic q28d]",
-    cycle:28,
-    notes:"Classic MVAC. Largely superseded by dose-dense MVAC. BC Cancer GUMVAC.",
-    drugs:[
-      { name:"Methotrexate", dose:30, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 1, 15, 22", reducible:true },
-      { name:"Vinblastine",  dose:3,  unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 2, 15, 22", reducible:true },
-      { name:"DOXOrubicin",  dose:30, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Day 2",          reducible:true },
-      { name:"CISplatin",    dose:70, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Day 2",          reducible:true }
-    ]
+    key: "GU-GUBDDMVAC",
+    cat: "GU",
+    bcc: true,
+    name: "GUBDDMVAC - Dose-Dense MVAC [Urothelial — Neoadjuvant]",
+    cycle: 14,
+    notes: "Preferred neoadjuvant regimen for muscle-invasive urothelial cancer (cT2–T4). G-CSF support mandatory Days 4–10. Plan 4 cycles; up to 6 may be considered.",
+    drugs: [
+      { name:"Methotrexate", dose:30, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV push", days:"Day 1", reducible:true, note:null },
+      { name:"VinBLAStine", dose:3, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 50 mL NS over 15 min", days:"Day 2", reducible:true, note:null },
+      { name:"DOXOrubicin", dose:30, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV push", days:"Day 2", reducible:true, note:null },
+      { name:"CISplatin", dose:70, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 500 mL NS over 1 h (with prehydration)", days:"Day 2", reducible:true, note:"Split-dose: 35 mg/m² Days 1+2 if CrCl 45–59 mL/min" },
+      { name:"Filgrastim (G-CSF)", dose:5, unit:"mcg/kg", basis:"weight", max:null, weightCap:null, route:"SC", days:"Days 4–10", reducible:false, note:"Mandatory G-CSF support" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH"],
+      conditional: [],
+    },
   },
   {
-    key:"GU-Cis-ChemoRT-Bladder", cat:"GU", bcc:true,
-    name:"CISplatin Weekly [Bladder-Sparing ChemoRT]",
-    cycle:7,
-    notes:"Radiosensitizer concurrent with definitive radiotherapy for bladder preservation. Typically ×5–7 weekly doses. BC Cancer GUBPWRT.",
-    drugs:[
-      { name:"CISplatin", dose:40, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Day 1 (weekly)", reducible:true }
-    ]
+    key: "GU-GUMVAC",
+    cat: "GU",
+    bcc: true,
+    name: "GUMVAC - Classic MVAC [Urothelial — Palliative]",
+    cycle: 28,
+    notes: "Classic MVAC for advanced or high-risk resected urothelial carcinoma. Largely superseded by dose-dense MVAC (GUBDDMVAC) for neoadjuvant use. Requires CrCl ≥60 mL/min.",
+    drugs: [
+      { name:"Methotrexate", dose:30, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV push", days:"Days 1, 15, 22", reducible:true, note:null },
+      { name:"VinBLAStine", dose:3, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 50 mL NS over 15 min", days:"Days 2, 15, 22", reducible:true, note:null },
+      { name:"DOXOrubicin", dose:30, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV push", days:"Day 2", reducible:true, note:null },
+      { name:"CISplatin", dose:70, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 500 mL NS over 1 h (with prehydration)", days:"Day 2", reducible:true, note:null },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase"],
+      cycle: ["CBC & Diff", "creatinine", "total bilirubin", "ALT"],
+      conditional: [],
+    },
   },
   {
-    key:"GU-CisFU-ChemoRT-Penile", cat:"GU", bcc:true,
-    name:"CISplatin + Fluorouracil [Penile/GU SCC — ChemoRT]",
-    cycle:28,
-    notes:"Concurrent chemoradiation for penile or GU squamous cell carcinoma. ×4–6 cycles q28d. 5-FU as 96-hour continuous infusion. BC Cancer GUFUPRT.",
-    drugs:[
-      { name:"CISplatin",    dose:25,   unit:"mg/m²", basis:"bsa", max:null, route:"IV",                     days:"Days 1–3 per cycle", reducible:true },
-      { name:"Fluorouracil", dose:1000, unit:"mg/m²", basis:"bsa", max:null, route:"IV continuous infusion", days:"Days 1–4 per cycle", reducible:true, note:"96-hour continuous infusion" }
-    ]
+    key: "GU-GUSCPE",
+    cat: "GU",
+    bcc: true,
+    name: "GUSCPE - CISplatin + Etoposide [GU Small Cell / High-Grade Neuroendocrine]",
+    cycle: 21,
+    notes: "Small cell carcinoma of the bladder or prostate, or high-grade neuroendocrine GU tumours. CARBOplatin AUC 5 may substitute for CISplatin in cases of CISplatin toxicity or poor PS.",
+    drugs: [
+      { name:"CISplatin", dose:25, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 100–250 mL NS over 30 min", days:"Days 1–3", reducible:true, note:null },
+      { name:"Etoposide", dose:100, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 250–1000 mL NS over 45–90 min", days:"Days 1–3", reducible:true, note:null },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "albumin", "INR"],
+      cycle: ["CBC & Diff", "platelets", "creatinine"],
+      conditional: [{ label:"If clinically indicated", tests:["total bilirubin"] }],
+    },
+  },
+  {
+    key: "GU-GUSCPERT",
+    cat: "GU",
+    bcc: true,
+    name: "GUSCPERT - CISplatin + Etoposide + RT [GU Small Cell — ChemoRT]",
+    cycle: 21,
+    notes: "Concurrent chemoradiation for limited-stage small cell carcinoma of the bladder or prostate and high-grade GU neuroendocrine tumours. RT given concurrently; cycles concurrent with pelvic RT may be spaced every 4 weeks. CARBOplatin AUC 5 may substitute.",
+    drugs: [
+      { name:"CISplatin", dose:25, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 100–250 mL NS over 30 min", days:"Days 1–3", reducible:true, note:null },
+      { name:"Etoposide", dose:100, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 250–1000 mL NS over 45–90 min", days:"Days 1–3", reducible:true, note:null },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "albumin", "INR"],
+      cycle: ["CBC & Diff", "creatinine"],
+      conditional: [{ label:"If clinically indicated", tests:["total bilirubin"] }],
+    },
+  },
+  {
+    key: "GU-GUFUPRT",
+    cat: "GU",
+    bcc: true,
+    name: "GUFUPRT - CISplatin + Fluorouracil + RT [Penile / GU SCC — ChemoRT]",
+    cycle: 28,
+    notes: "Combined modality therapy for locally advanced squamous cell carcinoma of the GU system including penile cancer. Fluorouracil as 96-hour continuous infusion. DPYD testing recommended. Repeat every 28 days for 4–6 cycles.",
+    drugs: [
+      { name:"CISplatin", dose:25, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV in 100–250 mL NS over 30 min", days:"Days 1–3", reducible:true, note:null },
+      { name:"Fluorouracil", dose:1000, unit:"mg/m²", basis:"bsa", max:null, weightCap:null, route:"IV continuous infusion over 24 h (D5W, 5 mL/h)", days:"Days 1–4 (96 h total)", reducible:true, note:"DPYD testing recommended before fluorouracil" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "platelets", "creatinine", "albumin", "DPYD test"],
+      cycle: ["CBC & Diff", "platelets", "creatinine"],
+      conditional: [{ label:"If clinically indicated", tests:["total bilirubin", "ALT", "LDH", "alkaline phosphatase"] }],
+    },
   },
   // Immunotherapy — Urothelial
   {
-    key:"GU-Pembro-q3w-Uro", cat:"GU", bcc:true,
-    name:"Pembrolizumab q3w [Urothelial — Adj / Advanced]",
-    cycle:21,
-    notes:"Post-platinum advanced UC or adjuvant post-cystectomy (max 18 cycles ≈1 year). BC Cancer GUAVPEM / GUAJPEM.",
-    drugs:[
-      { name:"Pembrolizumab", dose:2, unit:"mg/kg", basis:"weight", max:200, route:"IV over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg per dose" }
-    ]
-  },
-  {
-    key:"GU-Pembro-q6w-Uro", cat:"GU", bcc:true,
-    name:"Pembrolizumab q6w [Urothelial — Adj / Advanced]",
-    cycle:42,
-    notes:"q6w flat-equivalent dosing. Advanced UC or adjuvant (max 9 cycles ≈1 year). BC Cancer GUAVPEM6 / GUAJPEM6.",
-    drugs:[
-      { name:"Pembrolizumab", dose:4, unit:"mg/kg", basis:"weight", max:400, route:"IV over 30 min", days:"Day 1", reducible:false, note:"Max 400 mg per dose" }
-    ]
-  },
-  {
-    key:"GU-Nivo-q2w-Uro", cat:"GU", bcc:true,
-    name:"Nivolumab q2w [Urothelial — Adj / Advanced]",
-    cycle:14,
-    notes:"Post-platinum advanced UC or adjuvant post-cystectomy (up to 52 weeks). BC Cancer GUAVNIV / UGUAJNIV.",
-    drugs:[
-      { name:"Nivolumab", dose:3, unit:"mg/kg", basis:"weight", max:240, route:"IV over 30 min (0.2 µm filter)", days:"Day 1", reducible:false, note:"Max 240 mg per dose" }
-    ]
-  },
-  {
-    key:"GU-Nivo-q4w-Uro", cat:"GU", bcc:true,
-    name:"Nivolumab q4w [Urothelial — Adj / Advanced]",
-    cycle:28,
-    notes:"q4w flat-equivalent dosing. Advanced UC or adjuvant (up to 52 weeks). BC Cancer GUAVNIV4 / UGUAJNIV4.",
-    drugs:[
-      { name:"Nivolumab", dose:6, unit:"mg/kg", basis:"weight", max:480, route:"IV over 30 min (0.2 µm filter)", days:"Day 1", reducible:false, note:"Max 480 mg per dose" }
-    ]
-  },
-  {
-    key:"GU-NivoIpi-Uro-Induction", cat:"GU", bcc:true,
-    name:"Nivolumab + Ipilimumab Induction [Urothelial — Advanced]",
-    cycle:21,
-    notes:"Induction ×4 cycles q21d, then nivolumab maintenance (3 mg/kg q2w or 6 mg/kg q4w). BC Cancer GUAVIPNI.",
-    drugs:[
-      { name:"Nivolumab",  dose:3, unit:"mg/kg", basis:"weight", max:null, route:"IV over 30 min", days:"Day 1", reducible:false },
-      { name:"Ipilimumab", dose:1, unit:"mg/kg", basis:"weight", max:null, route:"IV over 30 min", days:"Day 1", reducible:false, note:"×4 induction cycles, then switch to nivolumab maintenance" }
-    ]
-  },
-  {
-    key:"GU-Avelumab-Uro", cat:"GU", bcc:true,
-    name:"Avelumab q2w [Urothelial — Maintenance]",
-    cycle:14,
-    notes:"Maintenance after platinum-based chemotherapy in advanced UC (no progression on platinum). Premedicate for first 4 infusions. BC Cancer GUBAVE.",
-    drugs:[
-      { name:"Avelumab", dose:10, unit:"mg/kg", basis:"weight", max:null, route:"IV over 60 min", days:"Day 1", reducible:false, note:"Premedicate: acetaminophen + antihistamine (first 4 infusions)" }
-    ]
-  },
-  {
-    key:"GU-EV-Uro", cat:"GU", bcc:true,
-    name:"Enfortumab Vedotin [Urothelial — Post-Platinum/PD-1]",
-    cycle:28,
-    notes:"ADC targeting Nectin-4. Days 1, 8, 15 of 28-day cycle; no treatment Day 22. Post-platinum and post-PD-1/L1 therapy. Use actual body weight. BC Cancer GUAVEV.",
-    drugs:[
-      { name:"Enfortumab Vedotin", dose:1.25, unit:"mg/kg", basis:"weight", max:125, route:"IV over 30 min", days:"Days 1, 8, 15", reducible:true, note:"Max 125 mg per dose; use actual body weight" }
-    ]
-  },
-  {
-    key:"GU-Pembro-Lenvatinib-Uro", cat:"GU", bcc:true,
-    name:"Pembrolizumab + Lenvatinib q3w [Urothelial]",
-    cycle:21,
-    notes:"ICI + VEGFR/FGFR TKI combination. Lenvatinib dose-reducible to 14 mg then 10 mg. BC Cancer GUAVPEML.",
-    drugs:[
-      { name:"Pembrolizumab", dose:2,  unit:"mg/kg", basis:"weight", max:200, route:"IV over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg per dose" },
-      { name:"Lenvatinib",    dose:20, unit:"mg",    basis:"flat",   max:null, route:"PO daily",      days:"Daily", reducible:true,  note:"Starting 20 mg/day; reduce to 14 mg then 10 mg" }
-    ]
-  },
-  // Intravesical — NMIBC
-  {
-    key:"GU-BCG-Intravesical", cat:"GU", bcc:true,
-    name:"BCG Intravesical [NMIBC]",
-    cycle:null,
-    notes:"Induction: weekly ×6 instillations. Maintenance: weekly ×3 at months 3, 6, 12, 18, 24, 30, 36 (high-risk) or months 3, 6, 12 (intermediate-risk). BC Cancer GUBCG.",
-    drugs:[
-      { name:"BCG (ONCOTICE)", dose:50, unit:"mg", basis:"flat", max:null, route:"Intravesical", days:"Weekly ×6 induction; weekly ×3 at intervals", reducible:false },
-      { name:"BCG (VERITY — alt)", dose:80, unit:"mg", basis:"flat", max:null, route:"Intravesical", days:"Same schedule as ONCOTICE", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Gem-Intravesical", cat:"GU", bcc:true,
-    name:"Gemcitabine Intravesical [NMIBC — BCG-Unresponsive]",
-    cycle:null,
-    notes:"Induction: weekly ×6. Maintenance: monthly ×10. BCG-unresponsive NMIBC. BC Cancer GUBGEM.",
-    drugs:[
-      { name:"Gemcitabine", dose:2000, unit:"mg", basis:"flat", max:null, route:"Intravesical", days:"Weekly ×6 (induction); monthly ×10 (maintenance)", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Gem-Doc-Intravesical", cat:"GU", bcc:true,
-    name:"Gemcitabine + Docetaxel Intravesical [NMIBC]",
-    cycle:null,
-    notes:"Sequential instillation — gemcitabine first, then docetaxel same session. Induction: weekly ×6. Maintenance: monthly ×10. BCG-unresponsive or BCG-naive high-risk. BC Cancer GUBGEMDOC.",
-    drugs:[
-      { name:"Gemcitabine", dose:1000, unit:"mg", basis:"flat", max:null, route:"Intravesical (first)", days:"Weekly ×6 (induction); monthly ×10 (maintenance)", reducible:false },
-      { name:"Docetaxel",   dose:37.5, unit:"mg", basis:"flat", max:null, route:"Intravesical (after gemcitabine same session)", days:"Same session", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Mito-Intravesical", cat:"GU", bcc:true,
-    name:"Mitomycin Intravesical [NMIBC]",
-    cycle:null,
-    notes:"Induction: weekly ×6. Maintenance: monthly ×10. BC Cancer GUBMITO.",
-    drugs:[
-      { name:"Mitomycin", dose:40, unit:"mg", basis:"flat", max:null, route:"Intravesical", days:"Weekly ×6 (induction); monthly ×10 (maintenance)", reducible:false }
-    ]
-  },
-
-  // =========================================================
-  // GU — Testicular / Germ Cell Tumours
-  // =========================================================
-
-  {
-    key:"GU-BEP", cat:"GU", bcc:true,
-    name:"BEP [Germ Cell — 1st Line]",
-    cycle:21,
-    notes:"Standard first-line for germ cell tumours. Good-risk: 3 cycles. Intermediate/poor-risk: 4 cycles. Bleomycin is flat (Units) — not BSA-based. BC Cancer GUBEP.",
-    drugs:[
-      { name:"CISplatin",  dose:20,  unit:"mg/m²", basis:"bsa",  max:null, route:"IV",      days:"Days 1–5",           reducible:true },
-      { name:"Etoposide",  dose:100, unit:"mg/m²", basis:"bsa",  max:null, route:"IV",      days:"Days 1–5",           reducible:true },
-      { name:"Bleomycin",  dose:30,  unit:"Units",  basis:"flat", max:null, route:"IV push", days:"Days 1, 8, 15 (each cycle)", reducible:true, note:"Flat 30 Units per dose; not BSA-based" }
+    key: "GU-GUAVPEM",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVPEM - Pembrolizumab q3w [Urothelial — Palliative]",
+    cycle: 21,
+    notes: "Second-line or later treatment for advanced or metastatic urothelial carcinoma after platinum-based chemotherapy. Max 35 cycles or 2 years. May switch to q6w dosing (GUAVPEM6) without additional CAP approval.",
+    drugs: [
+      { name:"Pembrolizumab", dose:2, unit:"mg/kg", basis:"weight", max:200, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg per dose; no dose reductions — manage toxicity by delay" },
     ],
-    labs:{
-      baseline:[
-        "CBC with differential",
-        "Electrolytes, creatinine, uric acid",
-        "LFTs (AST, ALT, ALP, bilirubin, albumin)",
-        "LDH, beta-hCG, AFP",
-        "Audiogram",
-        "PFTs (DLCO)"
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "random glucose", "serum ACTH", "ECG", "CRP", "creatine kinase", "troponin"] }],
+    },
+  },
+  {
+    key: "GU-GUAJPEM",
+    cat: "GU",
+    bcc: true,
+    name: "GUAJPEM - Pembrolizumab q3w [Urothelial — Adjuvant]",
+    cycle: 21,
+    notes: "Adjuvant treatment for high-risk muscle-invasive urothelial carcinoma after radical cystectomy. Max 18 cycles (~1 year, combined with GUAJPEM6). May switch to q6w dosing without additional CAP approval.",
+    drugs: [
+      { name:"Pembrolizumab", dose:2, unit:"mg/kg", basis:"weight", max:200, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg per dose; no dose reductions — manage toxicity by delay" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "serum ACTH", "random glucose", "ECG", "CRP", "creatine kinase", "troponin"] }],
+    },
+  },
+  {
+    key: "GU-GUAVPEM6",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVPEM6 - Pembrolizumab q6w [Urothelial — Palliative]",
+    cycle: 42,
+    notes: "6-weekly dosing option for advanced urothelial carcinoma. Switch from GUAVPEM permitted without CAP approval. Max 18 cycles (q6w) or 35 cycles (q3w) or 2 years.",
+    drugs: [
+      { name:"Pembrolizumab", dose:4, unit:"mg/kg", basis:"weight", max:400, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 400 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "random glucose", "serum ACTH", "ECG", "CRP", "creatine kinase", "troponin"] }],
+    },
+  },
+  {
+    key: "GU-GUAJPEM6",
+    cat: "GU",
+    bcc: true,
+    name: "GUAJPEM6 - Pembrolizumab q6w [Urothelial — Adjuvant]",
+    cycle: 42,
+    notes: "6-weekly adjuvant dosing option for urothelial carcinoma after cystectomy. Switch from GUAJPEM permitted without additional CAP approval. Max 9 cycles (q6w) or 18 combined with q3w (~1 year total).",
+    drugs: [
+      { name:"Pembrolizumab", dose:4, unit:"mg/kg", basis:"weight", max:400, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 400 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "serum ACTH", "random glucose", "ECG", "CRP", "creatine kinase", "troponin"] }],
+    },
+  },
+  {
+    key: "GU-GUAVNIV",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVNIV - Nivolumab q2w [Urothelial — Palliative]",
+    cycle: 14,
+    notes: "Post-platinum advanced or metastatic urothelial carcinoma. Max 52 weeks or 26 doses (combined with GUAVNIV4). May switch to q4w dosing (GUAVNIV4) without additional CAP approval.",
+    drugs: [
+      { name:"Nivolumab", dose:3, unit:"mg/kg", basis:"weight", max:240, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 240 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-UGUAJNIV",
+    cat: "GU",
+    bcc: true,
+    name: "UGUAJNIV - Nivolumab q2w [Urothelial — Adjuvant]",
+    cycle: 14,
+    notes: "Adjuvant treatment of high-risk muscle-invasive urothelial carcinoma after radical cystectomy. Max 52 weeks (combined with UGUAJNIV4). May switch to q4w dosing without additional CAP approval.",
+    drugs: [
+      { name:"Nivolumab", dose:3, unit:"mg/kg", basis:"weight", max:240, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 240 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUAVNIV4",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVNIV4 - Nivolumab q4w [Urothelial — Palliative]",
+    cycle: 28,
+    notes: "4-weekly dosing option for post-platinum advanced urothelial carcinoma. Switch from GUAVNIV permitted without additional CAP approval. Max 52 weeks (combined with GUAVNIV).",
+    drugs: [
+      { name:"Nivolumab", dose:6, unit:"mg/kg", basis:"weight", max:480, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 480 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-UGUAJNIV4",
+    cat: "GU",
+    bcc: true,
+    name: "UGUAJNIV4 - Nivolumab q4w [Urothelial — Adjuvant]",
+    cycle: 28,
+    notes: "4-weekly adjuvant dosing option after radical cystectomy for high-risk MIUC. Switch from UGUAJNIV permitted without additional CAP approval. Max 52 weeks combined.",
+    drugs: [
+      { name:"Nivolumab", dose:6, unit:"mg/kg", basis:"weight", max:480, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 480 mg per dose; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "chest x-ray"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUAVNIVC",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVNIVC - Nivolumab q2w + Cabozantinib [RCC — First-Line]",
+    cycle: 14,
+    notes: "First-line treatment for advanced or metastatic RCC. Nivolumab 3 mg/kg q2w (max 240 mg) + cabozantinib 40 mg PO daily continuously. Max 52 nivolumab cycles or 2 years. May switch to q4w nivolumab (GUAVNIVC4) without CAP approval.",
+    drugs: [
+      { name:"Nivolumab", dose:3, unit:"mg/kg", basis:"weight", max:240, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"No dose reductions; manage toxicity by delay" },
+      { name:"Cabozantinib", dose:40, unit:"mg", basis:"flat", max:null, weightCap:null, route:"PO once daily", days:"Continuously", reducible:true, note:"Dose levels: 40 → 20 mg daily", levels:[20] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "total protein", "albumin", "urinalysis for protein", "uric acid", "calcium", "magnesium", "blood pressure"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "urinalysis for protein", "uric acid", "blood pressure"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "GGT", "calcium", "magnesium", "phosphate", "troponin", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUAVNIVC4",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVNIVC4 - Nivolumab q4w + Cabozantinib [RCC — First-Line]",
+    cycle: 28,
+    notes: "First-line treatment for advanced or metastatic RCC. Nivolumab 6 mg/kg q4w (max 480 mg) + cabozantinib 40 mg PO daily. Max 26 nivolumab cycles or 2 years. Switch from GUAVNIVC permitted without additional CAP approval.",
+    drugs: [
+      { name:"Nivolumab", dose:6, unit:"mg/kg", basis:"weight", max:480, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"No dose reductions; manage toxicity by delay" },
+      { name:"Cabozantinib", dose:40, unit:"mg", basis:"flat", max:null, weightCap:null, route:"PO once daily", days:"Continuously", reducible:true, note:"Dose levels: 40 → 20 mg daily", levels:[20] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "total protein", "albumin", "urinalysis for protein", "uric acid", "calcium", "magnesium", "blood pressure"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "urinalysis for protein", "uric acid", "blood pressure"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "random glucose", "free T3", "free T4", "serum ACTH", "GGT", "calcium", "magnesium", "phosphate", "troponin", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUAVIPNI",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVIPNI - Nivolumab + Ipilimumab [RCC — First-Line Induction]",
+    cycle: 21,
+    notes: "First-line induction for intermediate- or poor-risk advanced RCC. Induction: nivolumab 3 mg/kg + ipilimumab 1 mg/kg q3w × 4 cycles. Followed by nivolumab maintenance monotherapy (3 mg/kg q2w or 6 mg/kg q4w).",
+    drugs: [
+      { name:"Nivolumab", dose:3, unit:"mg/kg", basis:"weight", max:null, weightCap:null, route:"IV in 50–100 mL NS over 30 min", days:"Day 1", reducible:false, note:"Induction ×4: no cap. Maintenance: GUAVNIV/GUAVNIV4" },
+      { name:"Ipilimumab", dose:1, unit:"mg/kg", basis:"weight", max:null, weightCap:null, route:"IV in 25–50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Induction phase only (×4 cycles); separate line from nivolumab" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "random glucose", "TSH", "morning serum cortisol", "chest x-ray", "HBsAg", "HBsAb", "HBcoreAb"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "creatine kinase", "random glucose"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "serum ACTH", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUBAVE",
+    cat: "GU",
+    bcc: true,
+    name: "GUBAVE - Avelumab [Urothelial — Maintenance]",
+    cycle: 14,
+    notes: "Maintenance therapy for locally advanced or metastatic urothelial carcinoma that has not progressed after 4–6 cycles of platinum-based chemotherapy. Premedicate with diphenhydramine + acetaminophen for first 4 infusions.",
+    drugs: [
+      { name:"Avelumab", dose:10, unit:"mg/kg", basis:"weight", max:null, weightCap:null, route:"IV in 250 mL NS over 60 min", days:"Day 1", reducible:false, note:"No dose reductions; manage toxicity by delay" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "morning serum cortisol", "random glucose"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "LDH", "sodium", "potassium", "TSH", "random glucose"],
+      conditional: [{ label:"If clinically indicated", tests:["chest x-ray", "morning serum cortisol", "lipase", "free T3", "free T4", "serum ACTH", "fasting glucose", "ECG"] }],
+    },
+  },
+  {
+    key: "GU-GUAVEV",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVEV - Enfortumab Vedotin [Urothelial — Post-Platinum/IO]",
+    cycle: 28,
+    notes: "ADC targeting Nectin-4 for unresectable locally advanced or metastatic urothelial carcinoma after platinum-based chemotherapy and PD-1/PD-L1 inhibitor. Days 1, 8, 15 of 28-day cycle. Use actual body weight. Max 125 mg/dose.",
+    drugs: [
+      { name:"Enfortumab Vedotin", dose:1.25, unit:"mg/kg", basis:"weight", max:125, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Days 1, 8, 15", reducible:true, note:"Observe 60 min post-infusion cycle 1; dose levels: 1.25 → 1.0 → 0.75 → 0.5 mg/kg", levels:[1.0, 0.75, 0.5] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "sodium", "potassium", "phosphate", "random glucose", "uric acid", "lipase", "HbA1c"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "sodium", "potassium", "phosphate", "random glucose"],
+      conditional: [
+        { label:"Days 8 and 15 of Cycle 1", tests:["CBC & Diff", "random glucose"] },
+        { label:"If clinically indicated", tests:["uric acid", "lipase", "HbA1c", "ophthalmologic consult"] },
       ],
-      cycle:[
-        "CBC with differential",
-        "Electrolytes, creatinine",
-        "LFTs (AST, ALT, ALP, bilirubin)"
+    },
+  },
+  {
+    key: "GU-GUAVEVPEM",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVEVPEM - Enfortumab Vedotin + Pembrolizumab [Urothelial — First-Line]",
+    cycle: 21,
+    notes: "First-line treatment for unresectable locally advanced or metastatic urothelial carcinoma. EV 1.25 mg/kg Days 1, 8 + pembrolizumab 2 mg/kg (max 200 mg) Day 1 every 21 days. Pembrolizumab max 35 cycles or 2 years.",
+    drugs: [
+      { name:"Enfortumab Vedotin", dose:1.25, unit:"mg/kg", basis:"weight", max:125, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Days 1, 8", reducible:true, note:"Observe 60 min post-infusion; dose levels: 1.25 → 1.0 → 0.75 → 0.5 mg/kg", levels:[1.0, 0.75, 0.5] },
+      { name:"Pembrolizumab", dose:2, unit:"mg/kg", basis:"weight", max:200, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg; no dose reductions" },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "sodium", "potassium", "phosphate", "random glucose", "uric acid", "lipase", "HbA1c", "TSH", "LDH"],
+      cycle: ["CBC & Diff", "creatinine", "alkaline phosphatase", "ALT", "total bilirubin", "sodium", "potassium", "phosphate", "random glucose", "TSH", "LDH"],
+      conditional: [
+        { label:"Day 8 of each cycle", tests:["CBC & Diff", "random glucose"] },
+        { label:"If clinically indicated", tests:["uric acid", "lipase", "HbA1c", "chest x-ray", "morning serum cortisol", "free T3", "free T4", "serum ACTH", "ECG", "CRP", "creatine kinase", "troponin", "ophthalmologic consult"] },
       ],
-      conditional:[
-        { label:"If bleomycin toxicity suspected", tests:["PFTs (DLCO)", "Chest X-ray"] }
-      ]
+    },
+  },
+  {
+    key: "GU-GUAVPEML",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVPEML - Pembrolizumab + Lenvatinib q3w [RCC — First-Line]",
+    cycle: 21,
+    notes: "First-line treatment for advanced or metastatic RCC (any histology). Pembrolizumab 2 mg/kg (max 200 mg) Day 1 + lenvatinib 20 mg PO daily. Lenvatinib continuous; pembrolizumab max 35 cycles or 2 years. Reduce lenvatinib to 10 mg/day if CrCl <30 mL/min or Child-Pugh C.",
+    drugs: [
+      { name:"Pembrolizumab", dose:2, unit:"mg/kg", basis:"weight", max:200, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 200 mg; no dose reductions" },
+      { name:"Lenvatinib", dose:20, unit:"mg", basis:"flat", max:null, weightCap:null, route:"PO once daily", days:"Continuously", reducible:true, note:"Dose levels: 20 → 14 → 10 → 8 → 4 mg daily", levels:[14, 10, 8, 4] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "GGT", "sodium", "potassium", "magnesium", "calcium", "albumin", "TSH", "random glucose", "urinalysis for protein", "LDH", "blood pressure"],
+      cycle: ["CBC & Diff", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "sodium", "potassium", "magnesium", "calcium", "TSH", "urinalysis for protein", "blood pressure"],
+      conditional: [
+        { label:"Every 2 weeks for first 2 months", tests:["blood pressure", "ALT", "alkaline phosphatase", "total bilirubin", "albumin"] },
+        { label:"If clinically indicated", tests:["morning serum cortisol", "lipase", "random glucose", "creatine kinase", "free T3", "free T4", "serum ACTH", "GGT", "total protein", "phosphate", "CRP", "troponin", "ECG", "chest x-ray"] },
+      ],
+    },
+  },
+  {
+    key: "GU-GUAVPEML6",
+    cat: "GU",
+    bcc: true,
+    name: "GUAVPEML6 - Pembrolizumab + Lenvatinib q6w [RCC — First-Line]",
+    cycle: 42,
+    notes: "6-weekly dosing option for first-line advanced or metastatic RCC. Pembrolizumab 4 mg/kg (max 400 mg) Day 1 + lenvatinib 20 mg PO daily. Switch from GUAVPEML permitted without additional CAP approval. Pembrolizumab max 18 cycles (q6w) or 35 cycles (q3w) or 2 years.",
+    drugs: [
+      { name:"Pembrolizumab", dose:4, unit:"mg/kg", basis:"weight", max:400, weightCap:null, route:"IV in 50 mL NS over 30 min", days:"Day 1", reducible:false, note:"Max 400 mg; no dose reductions" },
+      { name:"Lenvatinib", dose:20, unit:"mg", basis:"flat", max:null, weightCap:null, route:"PO once daily", days:"Continuously", reducible:true, note:"Dose levels: 20 → 14 → 10 → 8 → 4 mg daily", levels:[14, 10, 8, 4] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "GGT", "sodium", "potassium", "magnesium", "calcium", "albumin", "TSH", "random glucose", "urinalysis for protein", "LDH", "blood pressure"],
+      cycle: ["CBC & Diff", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "sodium", "potassium", "magnesium", "calcium", "TSH", "urinalysis for protein", "blood pressure"],
+      conditional: [
+        { label:"Every 2 weeks for first 2 months", tests:["blood pressure", "ALT", "alkaline phosphatase", "total bilirubin", "albumin"] },
+        { label:"If clinically indicated", tests:["morning serum cortisol", "lipase", "random glucose", "creatine kinase", "free T3", "free T4", "serum ACTH", "GGT", "total protein", "phosphate", "CRP", "troponin", "ECG", "chest x-ray"] },
+      ],
+    },
+  },
+  {
+    key: "GU-UGUAVERD",
+    cat: "GU",
+    bcc: true,
+    name: "UGUAVERD - Erdafitinib [Urothelial — FGFR3-Altered]",
+    cycle: 28,
+    notes: "FGFR inhibitor for locally advanced or metastatic urothelial carcinoma with susceptible FGFR3 mutations or fusions after prior platinum and PD-1/PD-L1 inhibitor therapy. Starting dose 8 mg/day; may increase to 9 mg in Cycle 2 if phosphate <2.25 mmol/L. Ophthalmologic monitoring required.",
+    drugs: [
+      { name:"Erdafitinib", dose:8, unit:"mg", basis:"flat", max:null, weightCap:null, route:"PO once daily", days:"Continuously", reducible:true, note:"May escalate to 9 mg in Cycle 2 if phosphate <2.25 mmol/L; dose levels: 8 → 6 → 5 → 4 mg", levels:[6, 5, 4] },
+    ],
+    labs: {
+      baseline: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "LDH", "phosphate", "albumin", "sodium", "potassium", "calcium", "urea"],
+      cycle: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "phosphate", "calcium", "sodium", "potassium"],
+      conditional: [
+        { label:"Day 14 and Day 21 of Cycle 1", tests:["phosphate", "calcium", "creatinine"] },
+        { label:"Ophthalmologic exam", tests:["Baseline, monthly ×4, then every 3 months"] },
+        { label:"If clinically indicated", tests:["LDH", "albumin", "magnesium", "urinalysis", "urea"] },
+      ],
+    },
+  },
+
+  // =========================================================
+  // GU — Germ Cell Tumours (Testicular) / RCC / Other
+  // =========================================================
+
+// GU — TESTICULAR / GERM CELL TUMOURS
+
+{
+  key: "GU-GUBEP",
+  cat: "GU",
+  bcc: true,
+  name: "GUBEP - BLEOmycin + Etoposide + CISplatin [Germ Cell — BEP]",
+  cycle: 21,
+  notes: "Standard curative therapy for germ cell tumours. Adjuvant: 2 cycles; good risk metastatic: 3 cycles; intermediate/poor risk metastatic: 4 cycles. Bleomycin given weekly (Days 1, 8, 15 each cycle). No dose reduction or delay permitted — curative intent; consult expert centre if any issue. Standard 5-day schedule preferred; 4-day alternative (cisplatin 25 mg/m² + etoposide 125 mg/m² Days 1–4) allowed only if statutory holiday conflict. Filgrastim indicated from 2nd cycle onwards if prior febrile neutropenia or neutrophil count not recovered by Day 5.",
+  drugs: [
+    {
+      name: "CISplatin",
+      dose: 20,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 100 mL NS over 30 min",
+      days: "Days 1–5",
+      reducible: false,
+      note: "No dose reduction permitted — curative intent. 4-day alternative: 25 mg/m² Days 1–4."
+    },
+    {
+      name: "Etoposide",
+      dose: 100,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–1000 mL NS over 45–90 min (non-DEHP, 0.2 µm filter)",
+      days: "Days 1–5",
+      reducible: false,
+      note: "No dose reduction permitted — curative intent. 4-day alternative: 125 mg/m² Days 1–4."
+    },
+    {
+      name: "BLEOmycin",
+      dose: 30,
+      unit: "Units",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "IV in 50 mL NS over at least 10 min",
+      days: "Days 1, 8, 15 (weekly)",
+      reducible: false,
+      note: "Given weekly — not tied to 21-day cycle boundary. Hydrocortisone premedication for each dose. Monitor for pulmonary toxicity before each cycle; creatinine required within 24h prior to Day 8 and Day 15."
     }
-  },
-  {
-    key:"GU-EP", cat:"GU", bcc:true,
-    name:"EP [Germ Cell — BEP Alternative]",
-    cycle:21,
-    notes:"Good-risk GCT when bleomycin is contraindicated. 3 cycles adjuvant; 4 cycles advanced. BC Cancer GUEP.",
-    drugs:[
-      { name:"CISplatin", dose:20,  unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 1–5", reducible:true },
-      { name:"Etoposide", dose:100, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 1–5", reducible:true }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "LDH", "creatinine", "sodium", "potassium", "magnesium", "calcium", "AFP", "beta-hCG", "CEA", "random glucose"],
+    cycle: ["CBC & Diff", "creatinine", "LDH", "AFP", "beta-hCG", "magnesium", "sodium", "potassium", "random glucose"],
+    conditional: [
+      { label: "Day 5 (if ANC on Day 1 < 1.0 × 10⁹/L; not required in Cycle 1)", tests: ["CBC & Diff"] },
+      { label: "Day 5 (if creatinine on Day 1 > ULN)", tests: ["creatinine"] },
+      { label: "Within 24h prior to Day 8 and Day 15 (bleomycin days)", tests: ["creatinine"] },
+      { label: "Baseline if indicated", tests: ["pulmonary function tests", "audiogram"] }
     ]
-  },
-  {
-    key:"GU-VIP", cat:"GU", bcc:true,
-    name:"VIP [Germ Cell — Salvage / Bleomycin-Intolerant]",
-    cycle:21,
-    notes:"Salvage for relapsed/refractory GCT; also first-line alternative when bleomycin is contraindicated. Mesna uroprotection required. BC Cancer GUVIP2.",
-    drugs:[
-      { name:"Etoposide",  dose:75,   unit:"mg/m²", basis:"bsa", max:null, route:"IV",                            days:"Days 1–5", reducible:true },
-      { name:"CISplatin",  dose:20,   unit:"mg/m²", basis:"bsa", max:null, route:"IV",                            days:"Days 1–5", reducible:true },
-      { name:"Ifosfamide", dose:1500, unit:"mg/m²", basis:"bsa", max:null, route:"IV",                            days:"Days 1–4", reducible:true },
-      { name:"Mesna",      dose:300,  unit:"mg/m²", basis:"bsa", max:null, route:"IV",                            days:"Days 1–4 (at 0, 7, 11h after ifosfamide)", reducible:false, note:"Uroprotection — 3 doses per day" }
+  }
+},
+
+{
+  key: "GU-GUEP",
+  cat: "GU",
+  bcc: true,
+  name: "GUEP - Etoposide + CISplatin [Germ Cell — EP, bleomycin-sparing]",
+  cycle: 21,
+  notes: "Bleomycin-sparing alternative for good-risk germ cell tumours (seminoma or nonseminoma) when there are contraindications to bleomycin. Duration: 4 cycles (3 cycles if adjuvant). No dose reduction or delay permitted — curative intent. Filgrastim indicated from 2nd cycle if prior febrile neutropenia or neutrophil count not recovered by Day 5. BEP × 3 remains the preferred regimen for good-risk disease.",
+  drugs: [
+    {
+      name: "CISplatin",
+      dose: 20,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 100 mL NS over 30 min",
+      days: "Days 1–5",
+      reducible: false,
+      note: "No dose reduction permitted — curative intent."
+    },
+    {
+      name: "Etoposide",
+      dose: 100,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–1000 mL NS over 45–90 min (non-DEHP, 0.2 µm filter)",
+      days: "Days 1–5",
+      reducible: false,
+      note: "No dose reduction permitted — curative intent."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "LDH", "creatinine", "sodium", "potassium", "magnesium", "calcium", "AFP", "beta-hCG", "random glucose"],
+    cycle: ["CBC & Diff", "creatinine", "LDH", "AFP", "beta-hCG", "magnesium", "sodium", "potassium", "random glucose"],
+    conditional: [
+      { label: "Day 5 (if ANC on Day 1 < 1.0 × 10⁹/L; not required in Cycle 1)", tests: ["CBC & Diff"] },
+      { label: "Day 5 (if creatinine on Day 1 > ULN)", tests: ["creatinine"] },
+      { label: "Baseline if indicated", tests: ["audiogram"] }
     ]
-  },
-  {
-    key:"GU-TIP", cat:"GU", bcc:true,
-    name:"TIP [Testicular GCT — Relapsed Salvage]",
-    cycle:21,
-    notes:"Salvage with curative intent. ×4 cycles. Full doses mandatory — dose-reduce only after 1-week delay. Inpatient. Paclitaxel premedications required. BC Cancer GUTIP.",
-    drugs:[
-      { name:"PACLitaxel",  dose:175,  unit:"mg/m²", basis:"bsa",    max:null, route:"IV over 3h",  days:"Day 1",    reducible:true, note:"Premedications: dexamethasone 20 mg + diphenhydramine 50 mg + famotidine 20 mg" },
-      { name:"CISplatin",   dose:20,   unit:"mg/m²", basis:"bsa",    max:null, route:"IV",          days:"Days 2–6", reducible:true },
-      { name:"Ifosfamide",  dose:1200, unit:"mg/m²", basis:"bsa",    max:null, route:"IV over 1h",  days:"Days 2–6", reducible:true },
-      { name:"Mesna",       dose:300,  unit:"mg/m²", basis:"bsa",    max:null, route:"IV",          days:"Days 2–5 (at 0.5, 5, 9h after ifosfamide)", reducible:false, note:"Uroprotection" },
-      { name:"Filgrastim",  dose:5,    unit:"mcg/kg", basis:"weight", max:null, route:"SC daily",   days:"Day 9+ (×5–7 days)", reducible:false, note:"G-CSF support" }
+  }
+},
+
+{
+  key: "GU-GUVEIP",
+  cat: "GU",
+  bcc: true,
+  name: "GUVEIP - VinBLAStine + Etoposide + Ifosfamide + CISplatin [Germ Cell — VeIP Salvage]",
+  cycle: 21,
+  notes: "Consolidation/salvage for germ cell tumours relapsed after etoposide-containing regimens (EP, BEP, VIP2), or for etoposide intolerance. Ifosfamide given Days 1–4 with mesna uroprotection (total ifosfamide dose maintained per published schedule). Vinblastine Days 1–2 only. Cisplatin given Days 1–5. Potentially curative — G-CSF may be used to maintain dose intensity. Monitor urine dipstick daily for hematuria during chemotherapy.",
+  drugs: [
+    {
+      name: "VinBLAStine",
+      dose: 0.11,
+      unit: "mg/kg",
+      basis: "weight",
+      max: null,
+      weightCap: null,
+      route: "IV in 50 mL NS over 15 min",
+      days: "Days 1–2",
+      reducible: true,
+      note: null
+    },
+    {
+      name: "CISplatin",
+      dose: 20,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 100 mL NS over 30 min",
+      days: "Days 1–5",
+      reducible: true,
+      note: "Reduce by 25% if creatinine > 300 µmol/L."
+    },
+    {
+      name: "Ifosfamide",
+      dose: 1500,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 500 mL D5W-½NS over 1 hour",
+      days: "Days 1–4",
+      reducible: true,
+      note: "Reduce by 25% if creatinine 200–300 µmol/L; reduce by 33% if creatinine > 300 µmol/L."
+    },
+    {
+      name: "Mesna",
+      dose: 300,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 100 mL D5W over 15 min × 3 doses (at Hours 1, 6.5, 10.5 relative to ifosfamide start)",
+      days: "Days 1–4 (with each ifosfamide dose)",
+      reducible: false,
+      note: "Alternatively: mesna 720 mg/m² PO in carbonated beverage at 2h and 6h after ifosfamide."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "creatinine", "electrolytes", "magnesium", "total bilirubin", "ALT", "alkaline phosphatase", "LDH", "albumin", "AFP", "beta-hCG"],
+    cycle: ["CBC & Diff", "platelets", "creatinine", "electrolytes", "magnesium", "total bilirubin", "ALT", "alkaline phosphatase", "LDH", "albumin", "AFP", "beta-hCG"],
+    conditional: [
+      { label: "Day 5", tests: ["CBC & Diff", "platelets", "creatinine"] },
+      { label: "Daily during chemotherapy", tests: ["Urine dipstick for hematuria"] }
     ]
-  },
-  {
-    key:"GU-VEIP", cat:"GU", bcc:true,
-    name:"VEIP [Germ Cell — Salvage / Consolidation]",
-    cycle:21,
-    notes:"Salvage/consolidation for relapsed GCT, especially post-etoposide or etoposide-intolerant. Curative intent. Vinblastine is weight-based (mg/kg). BC Cancer GUVEIP.",
-    drugs:[
-      { name:"Vinblastine", dose:0.11, unit:"mg/kg",  basis:"weight", max:null, route:"IV over 15 min", days:"Days 1, 2", reducible:true, note:"Weight-based; 0.11 mg/kg" },
-      { name:"CISplatin",   dose:20,   unit:"mg/m²",  basis:"bsa",    max:null, route:"IV",             days:"Days 1–5", reducible:true },
-      { name:"Ifosfamide",  dose:1500, unit:"mg/m²",  basis:"bsa",    max:null, route:"IV over 1h",     days:"Days 1–4", reducible:true },
-      { name:"Mesna",       dose:300,  unit:"mg/m²",  basis:"bsa",    max:null, route:"IV",             days:"Days 1–4 (at 1, 6.5, 10.5h after ifosfamide)", reducible:false, note:"Uroprotection; oral alternative: 720 mg/m² PO at 4.5h and 8.5h" }
+  }
+},
+
+{
+  key: "GU-GUTAXGEM",
+  cat: "GU",
+  bcc: true,
+  name: "GUTAXGEM - PACLitaxel + Gemcitabine [Germ Cell — Salvage]",
+  cycle: 28,
+  notes: "Palliative salvage for cisplatin-refractory germ cell tumours (failed 1st-line EP/BEP and 2nd-line VIP/VeIP), including post-BMT relapse. Repeat every 28 days × 2–6 cycles; discontinue if no response after 2 cycles. Paclitaxel premedication required (dexamethasone 20 mg IV 45 min prior; diphenhydrAMINE 50 mg IV + famotidine 20 mg IV 30 min prior).",
+  drugs: [
+    {
+      name: "PACLitaxel",
+      dose: 110,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–500 mL NS over 1 hour (non-DEHP, 0.2 µm filter)",
+      days: "Days 1, 8, 15",
+      reducible: true,
+      note: "Dose reduce per hematological toxicity table (75% or 50% of previous cycle).",
+      levels: [82.5, 55]
+    },
+    {
+      name: "Gemcitabine",
+      dose: 1000,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250 mL NS over 30 min",
+      days: "Days 1, 8, 15",
+      reducible: true,
+      note: "Dose reduce per hematological and GI toxicity tables.",
+      levels: [750, 500]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "AFP", "beta-hCG"],
+    cycle: ["creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "AFP", "beta-hCG"],
+    conditional: [
+      { label: "Weekly during treatment", tests: ["CBC & Diff", "platelets"] },
+      { label: "Every 8 weeks (baseline and alternate cycles)", tests: ["Imaging for response"] }
     ]
-  },
-  {
-    key:"GU-TaxGem-GCT", cat:"GU", bcc:true,
-    name:"Paclitaxel + Gemcitabine [Germ Cell — Cisplatin-Refractory]",
-    cycle:28,
-    notes:"For cisplatin-refractory GCT. Days 1, 8, 15. Discontinue if no response after 2 cycles. Paclitaxel premedications required. BC Cancer GUTAXGEM.",
-    drugs:[
-      { name:"PACLitaxel",  dose:110,  unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 1, 8, 15", reducible:true, note:"Premedications: dexamethasone 20 mg + diphenhydramine 50 mg + famotidine 20 mg" },
-      { name:"Gemcitabine", dose:1000, unit:"mg/m²", basis:"bsa", max:null, route:"IV", days:"Days 1, 8, 15", reducible:true }
+  }
+},
+
+{
+  key: "GU-GUSCARB",
+  cat: "GU",
+  bcc: true,
+  name: "GUSCARB - CARBOplatin AUC 7 [Seminoma — Adjuvant Stage I]",
+  cycle: 28,
+  notes: "Adjuvant therapy for high-risk Stage I seminoma. Requires CrCl ≥ 50 mL/min (Cockcroft-Gault). GFR capped at 125 mL/min for dose calculation. 2 cycles total. Measured GFR (nuclear renogram) preferred when feasible; lab-reported MDRD or Cockcroft-Gault may be used. Delay if ANC < 1.2 × 10⁹/L or platelets < 120 × 10⁹/L on treatment day.",
+  drugs: [
+    {
+      name: "CARBOplatin",
+      dose: 7,
+      unit: "AUC",
+      basis: "auc",
+      max: null,
+      weightCap: null,
+      route: "IV in 100–250 mL NS over 30 min",
+      days: "Day 1",
+      reducible: true,
+      note: "Calvert formula: dose (mg) = AUC 7 × (GFR + 25). GFR capped at 125 mL/min. Recalculate GFR at each cycle."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "LDH"],
+    cycle: ["CBC & Diff", "platelets", "creatinine"],
+    conditional: [
+      { label: "Days 14 and 21", tests: ["CBC & Diff", "platelets"] },
+      { label: "If clinically indicated", tests: ["ALT", "alkaline phosphatase", "total bilirubin", "LDH"] }
     ]
-  },
-  {
-    key:"GU-Carbo-Seminoma", cat:"GU", bcc:true,
-    name:"CARBOplatin AUC 7 [Seminoma — Adjuvant Stage I]",
-    cycle:28,
-    notes:"Adjuvant high-risk stage I seminoma. ×2 cycles only. Use a consistent GFR method throughout (Cockcroft-Gault or MDRD preferred). BC Cancer GUSCARB.",
-    drugs:[
-      { name:"CARBOplatin", dose:7, unit:"AUC", basis:"auc", max:null, route:"IV", days:"Day 1", reducible:false, note:"Calvert: AUC 7 × (CrCl+25). CrCl capped at 125 mL/min. ×2 cycles total." }
+  }
+},
+
+// GU — GCT SALVAGE (no PDF — keep existing)
+
+{
+  key: "GU-VIP",
+  cat: "GU",
+  bcc: true,
+  name: "VIP [GCT — Salvage]",
+  cycle: 21,
+  notes: "Salvage therapy for germ cell tumours. Ifosfamide requires mesna uroprotection.",
+  drugs: [
+    { name: "Vinblastine",  dose: 0.11, unit: "mg/kg", basis: "weight", max: null, weightCap: null, route: "IV",      days: "Days 1–2", reducible: true },
+    { name: "Ifosfamide",   dose: 1200, unit: "mg/m²", basis: "bsa",    max: null, weightCap: null, route: "IV",      days: "Days 1–5", reducible: true },
+    { name: "CISplatin",    dose: 20,   unit: "mg/m²", basis: "bsa",    max: null, weightCap: null, route: "IV",      days: "Days 1–5", reducible: true },
+    { name: "Mesna",        dose: 400,  unit: "mg/m²", basis: "bsa",    max: null, weightCap: null, route: "IV",      days: "With ifosfamide", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-TIP",
+  cat: "GU",
+  bcc: true,
+  name: "TIP [GCT — Salvage]",
+  cycle: 21,
+  notes: "Salvage therapy for germ cell tumours. Paclitaxel + ifosfamide + cisplatin.",
+  drugs: [
+    { name: "PACLitaxel",   dose: 250,  unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV over 24h", days: "Day 1",    reducible: true },
+    { name: "Ifosfamide",   dose: 1500, unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV",          days: "Days 2–6", reducible: true },
+    { name: "CISplatin",    dose: 25,   unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV",          days: "Days 2–6", reducible: true },
+    { name: "Mesna",        dose: 500,  unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV",          days: "With ifosfamide", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+// GU — INTRAVESICAL (no PDF — keep existing)
+
+{
+  key: "GU-BCG-Intravesical",
+  cat: "GU",
+  bcc: true,
+  name: "BCG Intravesical [NMIBC]",
+  cycle: null,
+  notes: "Induction: weekly ×6 instillations. Maintenance: weekly ×3 at months 3, 6, 12, 18, 24, 30, 36 (high-risk) or months 3, 6, 12 (intermediate-risk). BC Cancer GUBCG.",
+  drugs: [
+    { name: "BCG (ONCOTICE)", dose: 50, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical", days: "Weekly ×6 induction; weekly ×3 at intervals", reducible: false },
+    { name: "BCG (VERITY — alt)", dose: 80, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical", days: "Same schedule as ONCOTICE", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-Gem-Intravesical",
+  cat: "GU",
+  bcc: true,
+  name: "Gemcitabine Intravesical [NMIBC — BCG-Unresponsive]",
+  cycle: null,
+  notes: "Induction: weekly ×6. Maintenance: monthly ×10. BCG-unresponsive NMIBC. BC Cancer GUBGEM.",
+  drugs: [
+    { name: "Gemcitabine", dose: 2000, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical", days: "Weekly ×6 (induction); monthly ×10 (maintenance)", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-Gem-Doc-Intravesical",
+  cat: "GU",
+  bcc: true,
+  name: "Gemcitabine + Docetaxel Intravesical [NMIBC]",
+  cycle: null,
+  notes: "Sequential instillation — gemcitabine first, then docetaxel same session. Induction: weekly ×6. Maintenance: monthly ×10. BCG-unresponsive or BCG-naive high-risk. BC Cancer GUBGEMDOC.",
+  drugs: [
+    { name: "Gemcitabine", dose: 1000, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical (first)", days: "Weekly ×6 (induction); monthly ×10 (maintenance)", reducible: false },
+    { name: "Docetaxel",   dose: 37.5, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical (after gemcitabine same session)", days: "Same session", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-Mito-Intravesical",
+  cat: "GU",
+  bcc: true,
+  name: "Mitomycin Intravesical [NMIBC]",
+  cycle: null,
+  notes: "Induction: weekly ×6. Maintenance: monthly ×10. BC Cancer GUBMITO.",
+  drugs: [
+    { name: "Mitomycin", dose: 40, unit: "mg", basis: "flat", max: null, weightCap: null, route: "Intravesical", days: "Weekly ×6 (induction); monthly ×10 (maintenance)", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+// GU — RCC / OTHER TUMOURS
+
+{
+  key: "GU-GUSUNI",
+  cat: "GU",
+  bcc: true,
+  name: "GUSUNI - SUNItinib [RCC]",
+  cycle: 42,
+  notes: "Advanced RCC, any histology and IMDC risk group. First-line or after failure of first-line immunotherapy. Standard schedule: 50 mg PO daily × 4 weeks on / 2 weeks off (cycle = 6 weeks). Alternative continuous schedule: 37.5 mg PO daily if rapid progression during rest period. Monitor TSH every cycle for first 4 cycles then every 2–3 months. Monitor blood pressure daily for at least first 2 cycles.",
+  drugs: [
+    {
+      name: "SUNItinib",
+      dose: 50,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Days 1–28, then 2 weeks rest (4 weeks on / 2 weeks off)",
+      reducible: true,
+      note: "Alternative: 37.5 mg PO daily continuously if rapid progression during rest period.",
+      levels: [37.5, 25]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "sodium", "potassium", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "total protein", "albumin", "urinalysis for protein", "uric acid", "TSH"],
+    cycle: ["CBC & Diff", "creatinine", "uric acid", "ALT", "total bilirubin", "urinalysis for protein"],
+    conditional: [
+      { label: "Every other cycle (or if clinically indicated)", tests: ["TSH"] },
+      { label: "Baseline if clinically indicated", tests: ["magnesium", "calcium", "phosphate", "random glucose", "GGT", "ECG", "MUGA scan or echocardiogram"] },
+      { label: "If clinically indicated", tests: ["sodium", "potassium", "magnesium", "phosphate", "calcium", "albumin", "random glucose", "alkaline phosphatase", "GGT", "24-hour urine protein (if urinalysis ≥ 1 g/L or dipstick 2+/3+)", "total protein", "LDH", "TSH", "ECG", "MUGA scan or echocardiogram"] }
     ]
-  },
+  }
+},
+
+{
+  key: "GU-GUPAZO",
+  cat: "GU",
+  bcc: true,
+  name: "GUPAZO - PAZOpanib [RCC]",
+  cycle: 28,
+  notes: "Advanced RCC, any histology and IMDC risk group. First-line or after failure of first-line immunotherapy. Monitor liver function closely — severe hepatotoxicity reported. Increase monitoring frequency during weeks 2, 4, 6, 8 and prior to each cycle. Monitor blood pressure daily for at least first 2 cycles.",
+  drugs: [
+    {
+      name: "PAZOpanib",
+      dose: 800,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: null,
+      levels: [400, 200]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "sodium", "potassium", "creatinine", "total protein", "albumin", "total bilirubin", "alkaline phosphatase", "ALT", "urinalysis", "TSH"],
+    cycle: ["CBC & Diff", "platelets", "creatinine", "ALT", "total bilirubin"],
+    conditional: [
+      { label: "Every 2 weeks for Cycles 1 and 2", tests: ["CBC & Diff", "platelets", "creatinine", "ALT", "total bilirubin"] },
+      { label: "Every other cycle or if clinically indicated", tests: ["TSH"] },
+      { label: "If clinically indicated or history of cardiac problems", tests: ["MUGA scan or echocardiogram"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUAXIT",
+  cat: "GU",
+  bcc: true,
+  name: "GUAXIT - aXitinib [RCC — 2nd line]",
+  cycle: 28,
+  notes: "Metastatic RCC, any histology or IMDC risk group. After failure of first-line TKI (sunitinib, sorafenib, or pazopanib) OR after failure of first-line immunotherapy, OR intolerance to everolimus. Patients eligible for everolimus OR axitinib but not sequential use except for intolerance. Dose range 2–10 mg PO BID; may escalate to 10 mg BID if tolerated at starting dose with no > Grade 2 AEs for ≥ 2 consecutive weeks while normotensive without antihypertensives.",
+  drugs: [
+    {
+      name: "aXitinib",
+      dose: 5,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Dose range 2–10 mg PO BID. May escalate to 10 mg BID if tolerated. May reduce to 2–4 mg BID for toxicity."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "sodium", "potassium", "creatinine", "total protein", "albumin", "total bilirubin", "alkaline phosphatase", "urinalysis", "uric acid", "TSH"],
+    cycle: ["CBC & Diff", "urinalysis", "creatinine", "uric acid", "ALT", "total bilirubin"],
+    conditional: [
+      { label: "Every other cycle or if clinically indicated", tests: ["TSH"] },
+      { label: "If clinically indicated or history of cardiac problems", tests: ["MUGA scan or echocardiogram"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUSORAF",
+  cat: "GU",
+  bcc: true,
+  name: "GUSORAF - SORAfenib [RCC]",
+  cycle: 28,
+  notes: "Advanced RCC after cytokine failure, any histology and IMDC risk group. Also for selected patients with severe early toxicity from sunitinib. Continuous dosing (no break). Monitor blood pressure daily for at least first 2 cycles. CYP3A4 drug interactions — review concurrent medications.",
+  drugs: [
+    {
+      name: "SORAfenib",
+      dose: 400,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Level −1: 400 mg once daily. Level −2: 400 mg every other day.",
+      levels: [400, 200]
+    }
+  ],
+  labs: {
+    baseline: ["CBC", "differential", "platelets", "sodium", "potassium", "creatinine", "total protein", "albumin", "total bilirubin", "alkaline phosphatase", "urinalysis", "TSH"],
+    cycle: ["CBC", "differential", "platelets", "creatinine", "ALT", "total bilirubin"],
+    conditional: [
+      { label: "If clinically indicated or history of cardiac problems", tests: ["MUGA scan or echocardiogram"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUTEM",
+  cat: "GU",
+  bcc: true,
+  name: "GUTEM - Temsirolimus [RCC — Poor Prognosis]",
+  cycle: 28,
+  notes: "Advanced RCC with poor prognostic factors, any histology. Weekly IV dosing. diphenhydrAMINE 25–50 mg IV premedication 30 min before each infusion. Discontinue if tumour progression or Grade 3–4 toxicities not recovering to Grade 0–2 within 3 weeks. Response evaluation recommended every 8–10 weeks. CYP3A4 drug interactions — review concurrent medications. Risk of pneumonitis (mTOR class effect).",
+  drugs: [
+    {
+      name: "Temsirolimus",
+      dose: 25,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "IV in 250 mL NS (non-DEHP bag, non-DEHP tubing, 0.2 µm filter) over 30–60 min",
+      days: "Day 1 weekly (every 7 days)",
+      reducible: true,
+      note: "Doses may be given up to 2 days early or late for holiday/scheduling.",
+      levels: [20, 15]
+    }
+  ],
+  labs: {
+    baseline: ["CBC", "differential", "platelets", "sodium", "potassium", "creatinine", "BUN", "random glucose", "calcium", "phosphorus", "ALT", "LDH", "total bilirubin", "alkaline phosphatase", "total cholesterol", "triglycerides", "chest x-ray", "oxygen saturation"],
+    cycle: ["CBC", "differential", "platelets"],
+    conditional: [
+      { label: "Prior to each cycle (required, results not needed before first treatment)", tests: ["sodium", "potassium", "creatinine", "BUN", "random glucose", "calcium", "phosphorus", "ALT", "LDH", "total bilirubin", "alkaline phosphatase", "total cholesterol", "triglycerides"] },
+      { label: "If on anticoagulants", tests: ["INR", "PTT"] },
+      { label: "If clinically indicated", tests: ["any abnormal baseline tests"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUOTEVER",
+  cat: "GU",
+  bcc: true,
+  name: "GUOTEVER - Everolimus [Tuberous Sclerosis Complex — Renal Angiomyolipoma]",
+  cycle: 28,
+  notes: "Tuberous sclerosis complex (TSC) with renal angiomyolipoma ≥ 3 cm on imaging. Distinct from RCC everolimus protocol. Continue until disease progression or unacceptable toxicity. Stomatitis prophylaxis: dexamethasone mouthwash 0.1 mg/mL (alcohol-free) 10 mL QID × 8 weeks (up to 16 weeks at oncologist discretion). Monitor for pneumonitis (mTOR class effect), hyperglycemia, hypercholesterolemia, hypertriglyceridemia.",
+  drugs: [
+    {
+      name: "Everolimus",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Level −1: 5 mg daily. Level −2: 5 mg every other day. Hepatic impairment: Child-Pugh A → 7.5 mg; Child-Pugh B → 5 mg; Child-Pugh C → max 2.5 mg.",
+      levels: [5, 2.5]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "sodium", "potassium", "creatinine", "urea", "random glucose", "magnesium", "calcium", "phosphate", "ALT", "LDH", "total bilirubin", "albumin", "INR", "alkaline phosphatase", "total cholesterol", "triglycerides", "urinalysis for protein", "blood pressure"],
+    cycle: ["CBC & Diff", "creatinine", "urinalysis for protein"],
+    conditional: [
+      { label: "Prior to Cycles 2–4, then each visit", tests: ["CBC & Diff", "creatinine", "urinalysis for protein"] },
+      { label: "Baseline if clinically indicated", tests: ["total protein", "albumin", "GGT", "HBsAg", "HBsAb", "HBcoreAb", "chest x-ray", "oxygen saturation"] },
+      { label: "If clinically indicated", tests: ["total protein", "albumin", "total bilirubin", "INR", "GGT", "alkaline phosphatase", "LDH", "ALT", "urea", "random glucose", "HbA1c", "total cholesterol", "triglycerides", "sodium", "potassium", "magnesium", "calcium", "phosphate", "creatine kinase", "24-hour urine protein (if urinalysis ≥ 1 g/L or dipstick 2+/3+)"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUOTSUNI",
+  cat: "GU",
+  bcc: true,
+  name: "GUOTSUNI - SUNItinib [Pheochromocytoma / Paraganglioma]",
+  cycle: 42,
+  notes: "Unresectable malignant pheochromocytoma or secretory paraganglioma with documented progression, symptomatic disease, or risk of end-organ compromise. All patients with confirmed secretory tumours must receive appropriate alpha-adrenergic blockade ≥ 7–14 days prior to initiating therapy. Avoid dopamine receptor antagonists (metoclopramide, prochlorperazine) as antiemetics. Standard schedule: 50 mg PO daily × 4 weeks on / 2 weeks off (cycle = 6 weeks). Monitor TSH every cycle × 4, then every 2–3 months. Monitor blood pressure daily for at least first 2 cycles.",
+  drugs: [
+    {
+      name: "SUNItinib",
+      dose: 50,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Days 1–28, then 2 weeks rest (4 weeks on / 2 weeks off)",
+      reducible: true,
+      note: "Alternative: 37.5 mg PO daily continuously. Require alpha-adrenergic blockade before starting in secretory tumours.",
+      levels: [37.5, 25]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "albumin", "total protein", "random glucose", "sodium", "potassium", "magnesium", "phosphate", "calcium", "urinalysis for protein", "TSH", "blood pressure", "24-hour urine metanephrines and catecholamines"],
+    cycle: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "albumin", "random glucose", "sodium", "potassium"],
+    conditional: [
+      { label: "Cycle 2 prior to Day 1 (required before proceeding)", tests: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "albumin", "random glucose", "sodium", "potassium", "magnesium", "phosphate", "calcium"] },
+      { label: "Cycles 3+ prior to Day 1", tests: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "random glucose", "sodium", "potassium"] },
+      { label: "Baseline if clinically indicated", tests: ["ECG"] },
+      { label: "If clinically indicated", tests: ["alkaline phosphatase", "albumin", "GGT", "magnesium", "phosphate", "calcium", "24-hour urine metanephrines and catecholamines", "TSH", "urinalysis for protein", "24-hour urine protein (if urinalysis ≥ 1 g/L or dipstick 2+/3+)", "ECG", "MUGA scan or echocardiogram"] }
+    ]
+  }
+},
+
+{
+  key: "GU-UGUVHLBEL",
+  cat: "GU",
+  bcc: true,
+  name: "UGUVHLBEL - Belzutifan [VHL Disease — RCC / Hemangioblastoma / pNET]",
+  cycle: 28,
+  notes: "Von Hippel-Lindau (vHL) disease-associated non-metastatic RCC, CNS hemangioblastomas, or nonmetastatic pancreatic neuroendocrine tumours not requiring immediate surgery. Requires BC Cancer Compassionate Access Program approval prior to treatment. Must have home pulse oximeter — check SpO₂ daily for first 2 weeks then as directed. Anemia is a key toxicity; do not use erythropoiesis-stimulating agents. Hormonal contraceptives may be ineffective — use non-hormonal contraception.",
+  drugs: [
+    {
+      name: "Belzutifan",
+      dose: 120,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Level −1: 80 mg daily. Level −2: 40 mg daily. Level −3: discontinue.",
+      levels: [80, 40]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "random glucose", "iron studies", "pulse oximetry"],
+    cycle: ["CBC & Diff", "creatinine", "total bilirubin", "ALT", "alkaline phosphatase", "random glucose", "pulse oximetry"],
+    conditional: [
+      { label: "Person of child-bearing potential — 7 days prior to initial prescription", tests: ["quantitative beta-hCG"] },
+      { label: "Daily for first 2 weeks (home monitoring)", tests: ["pulse oximetry"] },
+      { label: "If clinically indicated", tests: ["serum beta-hCG"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUAVPEMAX",
+  cat: "GU",
+  bcc: true,
+  name: "GUAVPEMAX - Pembrolizumab + aXitinib q3w [RCC — 1st Line]",
+  cycle: 21,
+  notes: "First-line metastatic RCC, any histology and IMDC risk group. Pembrolizumab 2 mg/kg (max 200 mg) IV q3w for up to 35 cycles (or 2 years). aXitinib 5 mg PO BID continuously; dose range 2–10 mg BID. No dose modifications for pembrolizumab — manage toxicity by delay. Retreatment with pembrolizumab ± axitinib permitted after progression if initial course completed without progression. Switch between 3-weekly and 6-weekly pembrolizumab does not require CAP approval. Monitor BP daily for at least first 2 cycles. Weekly nursing assessment for side effects during combination phase (optional).",
+  drugs: [
+    {
+      name: "Pembrolizumab",
+      dose: 200,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "IV in 50 mL NS over 30 min (0.2 µm in-line filter)",
+      days: "Day 1",
+      reducible: false,
+      note: "Weight-based dosing: 2 mg/kg capped at 200 mg. No dose reductions — manage toxicity by delay. Dose banding applies (see protocol appendix)."
+    },
+    {
+      name: "aXitinib",
+      dose: 5,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Starting dose 5 mg BID; may escalate to 10 mg BID if tolerated (no > Grade 2 AEs × 2 consecutive weeks, normotensive without antihypertensives). May reduce to 2 mg BID for toxicity. Hold for proteinuria ≥ 1 g/24h; discontinue for ≥ 3.5 g/24h."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "sodium", "potassium", "creatinine", "albumin", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "uric acid", "TSH", "morning serum cortisol", "urinalysis for protein", "chest x-ray"],
+    cycle: ["CBC & Diff", "sodium", "potassium", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "uric acid", "TSH", "urinalysis for protein"],
+    conditional: [
+      { label: "During aXitinib monotherapy (after pembrolizumab completion)", tests: ["CBC & Diff", "creatinine", "ALT", "total bilirubin", "uric acid", "urinalysis for protein"] },
+      { label: "TSH during aXitinib monotherapy", tests: ["TSH every other cycle or if clinically indicated"] },
+      { label: "If clinically indicated (combination phase)", tests: ["serum or urine HCG (if pregnancy suspected)", "free T3", "free T4", "morning serum cortisol", "serum ACTH", "FSH", "LH", "estradiol", "testosterone", "albumin", "GGT", "total protein", "lipase", "calcium", "phosphate", "random glucose", "CRP", "creatine kinase", "troponin", "MUGA scan or echocardiogram", "ECG", "chest x-ray"] },
+      { label: "If clinically indicated (aXitinib monotherapy phase)", tests: ["sodium", "potassium", "calcium", "phosphate", "albumin", "alkaline phosphatase", "GGT", "LDH", "total protein", "TSH", "MUGA scan or echocardiogram"] },
+      { label: "If urinalysis ≥ 1 g/L or dipstick 2+/3+", tests: ["24-hour urine protein"] }
+    ]
+  }
+},
+
+{
+  key: "GU-GUAVPEMAX6",
+  cat: "GU",
+  bcc: true,
+  name: "GUAVPEMAX6 - Pembrolizumab + aXitinib q6w [RCC — 1st Line]",
+  cycle: 42,
+  notes: "First-line metastatic RCC, any histology and IMDC risk group. 6-weekly pembrolizumab variant. Pembrolizumab 4 mg/kg (max 400 mg) IV q6w for up to 18 cycles (or 2 years). aXitinib 5 mg PO BID continuously; dose range 2–10 mg BID. No dose modifications for pembrolizumab — manage toxicity by delay. Retreatment permitted after progression if initial course completed without progression. Switch between 3-weekly and 6-weekly pembrolizumab does not require CAP approval. Monitor BP daily for at least first 2 cycles. Weekly nursing assessment for side effects during combination phase (optional).",
+  drugs: [
+    {
+      name: "Pembrolizumab",
+      dose: 400,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "IV in 50 mL NS over 30 min (0.2 µm in-line filter)",
+      days: "Day 1",
+      reducible: false,
+      note: "Weight-based dosing: 4 mg/kg capped at 400 mg. No dose reductions — manage toxicity by delay. Dose banding applies (see protocol appendix)."
+    },
+    {
+      name: "aXitinib",
+      dose: 5,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily continuously",
+      reducible: true,
+      note: "Starting dose 5 mg BID; may escalate to 10 mg BID if tolerated (no > Grade 2 AEs × 2 consecutive weeks, normotensive without antihypertensives). May reduce to 2 mg BID for toxicity. Hold for proteinuria ≥ 1 g/24h; discontinue for ≥ 3.5 g/24h."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "sodium", "potassium", "creatinine", "albumin", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "uric acid", "TSH", "morning serum cortisol", "urinalysis for protein", "chest x-ray"],
+    cycle: ["CBC & Diff", "sodium", "potassium", "creatinine", "ALT", "alkaline phosphatase", "total bilirubin", "LDH", "uric acid", "TSH", "urinalysis for protein"],
+    conditional: [
+      { label: "During aXitinib monotherapy (after pembrolizumab completion)", tests: ["CBC & Diff", "creatinine", "ALT", "total bilirubin", "uric acid", "urinalysis for protein"] },
+      { label: "TSH during aXitinib monotherapy", tests: ["TSH every other cycle or if clinically indicated"] },
+      { label: "If clinically indicated (combination phase)", tests: ["serum or urine HCG (if pregnancy suspected)", "free T3", "free T4", "morning serum cortisol", "serum ACTH", "FSH", "LH", "estradiol", "testosterone", "albumin", "GGT", "total protein", "lipase", "calcium", "phosphate", "random glucose", "CRP", "creatine kinase", "troponin", "MUGA scan or echocardiogram", "ECG", "chest x-ray"] },
+      { label: "If clinically indicated (aXitinib monotherapy phase)", tests: ["sodium", "potassium", "calcium", "phosphate", "albumin", "alkaline phosphatase", "GGT", "LDH", "total protein", "TSH", "MUGA scan or echocardiogram"] },
+      { label: "If urinalysis ≥ 1 g/L or dipstick 2+/3+", tests: ["24-hour urine protein"] }
+    ]
+  }
+},
 
   // =========================================================
-  // GU — Prostate Cancer (Chemotherapy)
+  // GU — Prostate Cancer
   // =========================================================
 
-  {
-    key:"GU-Doc-Pred-mCRPC", cat:"GU", bcc:true,
-    name:"Docetaxel + Prednisone [Prostate — mCRPC]",
-    cycle:21,
-    notes:"First-line chemotherapy for mCRPC. ×6–10 cycles. Premedicate with dexamethasone 8 mg PO at 12h, 3h, and 1h before each infusion. BC Cancer GUPDOC.",
-    drugs:[
-      { name:"DOCEtaxel",  dose:75, unit:"mg/m²", basis:"bsa",  max:null, route:"IV over 1h",  days:"Day 1",  reducible:true, note:"Premedicate: dexamethasone 8 mg PO at 12h, 3h, 1h before" },
-      { name:"PredniSONE", dose:10, unit:"mg",    basis:"flat", max:null, route:"PO daily",    days:"Daily",  reducible:false }
-    ]
-  },
-  {
-    key:"GU-Doc-ADT-mCSPC", cat:"GU", bcc:true,
-    name:"Docetaxel + ADT [Prostate — mCSPC]",
-    cycle:21,
-    notes:"×6 cycles docetaxel added to ongoing ADT for high-volume/high-risk metastatic castration-sensitive prostate cancer. BC Cancer GUPDOCADT.",
-    drugs:[
-      { name:"DOCEtaxel",  dose:75, unit:"mg/m²", basis:"bsa",  max:null, route:"IV over 1h", days:"Day 1", reducible:true, note:"Premedicate: dexamethasone 8 mg PO at 12h, 3h, 1h before; continue ADT concurrently" },
-      { name:"PredniSONE", dose:10, unit:"mg",    basis:"flat", max:null, route:"PO daily",   days:"Daily during docetaxel cycles", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Daro-Doc-mCSPC", cat:"GU", bcc:true,
-    name:"Darolutamide + Docetaxel + ADT [Prostate — mCSPC]",
-    cycle:21,
-    notes:"Darolutamide 600 mg BID continued after docetaxel completion. ×6 cycles docetaxel. ADT maintained throughout. BC Cancer UGUMCSPDD.",
-    drugs:[
-      { name:"Darolutamide", dose:600, unit:"mg",    basis:"flat", max:null, route:"PO BID",    days:"Daily (continuous)", reducible:false, note:"600 mg BID; continue after docetaxel completion" },
-      { name:"DOCEtaxel",    dose:75,  unit:"mg/m²", basis:"bsa",  max:null, route:"IV over 1h", days:"Day 1 (×6 cycles)", reducible:true, note:"Premedicate: dexamethasone 8 mg PO at 12h, 3h, 1h before" },
-      { name:"PredniSONE",   dose:10,  unit:"mg",    basis:"flat", max:null, route:"PO daily",   days:"Daily during docetaxel", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Cabazi-Pred", cat:"GU", bcc:true,
-    name:"Cabazitaxel + Prednisone [Prostate — Post-Docetaxel mCRPC]",
-    cycle:21,
-    notes:"Second-line taxane after docetaxel failure in mCRPC. Max 10 cycles. Premedicate with antihistamine + corticosteroid + H2 blocker before each cycle. BC Cancer GUPCABA.",
-    drugs:[
-      { name:"Cabazitaxel", dose:25, unit:"mg/m²", basis:"bsa",  max:null, route:"IV over 1h", days:"Day 1",  reducible:true, note:"Premedicate: diphenhydramine 25 mg IV + dexamethasone 8 mg IV + ranitidine 50 mg IV" },
-      { name:"PredniSONE",  dose:10, unit:"mg",    basis:"flat", max:null, route:"PO daily",   days:"Daily",  reducible:false }
-    ]
-  },
-  {
-    key:"GU-Mitox-Pred-mCRPC", cat:"GU", bcc:true,
-    name:"Mitoxantrone + Prednisone [Prostate — Palliative mCRPC]",
-    cycle:21,
-    notes:"Palliative intent — no survival benefit. Cumulative max mitoxantrone 140 mg/m². Starting dose may be 10 mg/m² with extensive prior RT or strontium. Discontinue if no response after 2 cycles. BC Cancer GUPMX.",
-    drugs:[
-      { name:"MitoXANTRONE", dose:12, unit:"mg/m²", basis:"bsa",  max:null, route:"IV", days:"Day 1", reducible:true, note:"Cumulative max 140 mg/m²; may start 10 mg/m² with prior RT or strontium" },
-      { name:"PredniSONE",   dose:10, unit:"mg",    basis:"flat", max:null, route:"PO daily", days:"Daily", reducible:false }
-    ]
-  },
-  // Prostate Oral Targeted
-  {
-    key:"GU-Abi-Pred-Prostate", cat:"GU", bcc:true,
-    name:"Abiraterone + Prednisone [Prostate — mCRPC / mCSPC]",
-    cycle:30,
-    notes:"Used in both mCRPC (pre- or post-chemotherapy) and mCSPC (with ADT). Take abiraterone on empty stomach. BC Cancer GUMCSPABI / UGUPABI / UGUPAJABI.",
-    drugs:[
-      { name:"Abiraterone", dose:1000, unit:"mg", basis:"flat", max:null, route:"PO daily (empty stomach)", days:"Daily", reducible:false },
-      { name:"PredniSONE",  dose:10,   unit:"mg", basis:"flat", max:null, route:"PO daily",                 days:"Daily", reducible:false, note:"5 mg BID or 10 mg daily" }
-    ]
-  },
-  {
-    key:"GU-Enzalutamide-Prostate", cat:"GU", bcc:true,
-    name:"Enzalutamide [Prostate — nmCRPC / mCRPC / mCSPC]",
-    cycle:30,
-    notes:"160 mg daily. Continued with ongoing ADT across nmCRPC, mCRPC, and mCSPC settings. BC Cancer UGUNMPENZ / UGUPENZ / GUMCSPENZ.",
-    drugs:[
-      { name:"Enzalutamide", dose:160, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Daily (continuous)", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Apalutamide-Prostate", cat:"GU", bcc:true,
-    name:"Apalutamide [Prostate — mCSPC / mCRPC]",
-    cycle:30,
-    notes:"240 mg daily. Continued with ongoing ADT. BC Cancer UGUPAPA / GUMCSPAPA.",
-    drugs:[
-      { name:"Apalutamide", dose:240, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Daily (continuous)", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Daro-nmCRPC", cat:"GU", bcc:true,
-    name:"Darolutamide [Prostate — nmCRPC Monotherapy]",
-    cycle:30,
-    notes:"600 mg BID. Non-metastatic castration-resistant prostate cancer. Continued with ongoing ADT. BC Cancer UGUNMPDAR.",
-    drugs:[
-      { name:"Darolutamide", dose:600, unit:"mg", basis:"flat", max:null, route:"PO BID", days:"Daily BID (1200 mg/day total)", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Olaparib-mCRPC", cat:"GU", bcc:true,
-    name:"Olaparib [Prostate — mCRPC HRR-Mutated]",
-    cycle:28,
-    notes:"300 mg BID for BRCA1/2 or other HRR gene mutations. PARP inhibitor monotherapy. BC Cancer UGUPOLAP.",
-    drugs:[
-      { name:"Olaparib", dose:300, unit:"mg", basis:"flat", max:null, route:"PO BID", days:"Daily BID (600 mg/day total)", reducible:false }
-    ]
-  },
-  {
-    key:"GU-Olap-Abi-mCRPC", cat:"GU", bcc:true,
-    name:"Olaparib + Abiraterone + Prednisone [Prostate — mCRPC HRR-Mutated]",
-    cycle:30,
-    notes:"Combination PARP inhibitor + novel hormonal for HRR-mutated mCRPC. BC Cancer UGUPAVOABI.",
-    drugs:[
-      { name:"Olaparib",    dose:300,  unit:"mg", basis:"flat", max:null, route:"PO BID",                      days:"Daily BID", reducible:false },
-      { name:"Abiraterone", dose:1000, unit:"mg", basis:"flat", max:null, route:"PO daily (empty stomach)",    days:"Daily",     reducible:false },
-      { name:"PredniSONE",  dose:10,   unit:"mg", basis:"flat", max:null, route:"PO daily",                    days:"Daily",     reducible:false }
-    ]
-  },
+// GU — PROSTATE CANCER
 
-  // =========================================================
-  // GU — Renal Cell Carcinoma
-  // =========================================================
+// mCRPC — Docetaxel
+{
+  key: "GU-GUPDOC",
+  cat: "GU",
+  bcc: true,
+  name: "GUPDOC - DOCEtaxel + predniSONE [Prostate — mCRPC]",
+  cycle: 21,
+  notes: "Palliative mCRPC. Up to 10 cycles; BC Cancer Compassionate Access Program approval required beyond 10 cycles. Maintain ADT (LHRH agonist/antagonist). Dexamethasone premedication required (8 mg PO BID x 3 days starting 1 day prior). Hepatic dose adjustment required.",
+  drugs: [
+    {
+      name: "DOCEtaxel",
+      dose: 75,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–500 mL NS over 1 hour",
+      days: "Day 1",
+      reducible: true,
+      note: "Use non-DEHP equipment. 75% dose after neutropenic sepsis."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID. May substitute dexamethasone 1.5 mg PO daily."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "total bilirubin", "ALT", "alkaline phosphatase", "PSA"],
+    cycle: ["CBC & Diff", "platelets"],
+    conditional: [
+      { label: "Before Cycle 4 and if clinically indicated", tests: ["total bilirubin", "ALT", "alkaline phosphatase", "LDH"] },
+      { label: "Every 3 weeks", tests: ["PSA"] }
+    ]
+  }
+},
 
-  {
-    key:"GU-Sunitinib-RCC", cat:"GU", bcc:true,
-    name:"Sunitinib [RCC — 1st Line / Post-Immunotherapy]",
-    cycle:42,
-    notes:"4 weeks on / 2 weeks off (42-day cycle). Alternative: 37.5 mg continuously if rapid progression during break. Monitor LVEF and thyroid function. BC Cancer GUSUNI.",
-    drugs:[
-      { name:"Sunitinib", dose:50, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Days 1–28 (then 14 days rest)", reducible:true, note:"Dose levels: 50 mg → 37.5 mg → 25 mg; alternative continuous 37.5 mg/day" }
+// mCSPC — Docetaxel
+{
+  key: "GU-GUPDOCADT",
+  cat: "GU",
+  bcc: true,
+  name: "GUPDOCADT - DOCEtaxel + ADT [Prostate — mCSPC]",
+  cycle: 21,
+  notes: "First-line mCSPC (high-volume disease). DOCEtaxel started within 4 months of ADT initiation. 6 cycles. ADT options: LHRH agonist (goserelin/leuprolide), LHRH agonist + anti-androgen, or LHRH antagonist (degarelix/relugolix) — see GUPADT. Dexamethasone premedication required.",
+  drugs: [
+    {
+      name: "DOCEtaxel",
+      dose: 75,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–500 mL NS over 1 hour",
+      days: "Day 1",
+      reducible: true,
+      note: "Use non-DEHP equipment. 75% dose after neutropenic sepsis."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "PSA"],
+    cycle: ["CBC & Diff"],
+    conditional: [
+      { label: "Before Cycle 4 and if clinically indicated", tests: ["total bilirubin", "ALT", "alkaline phosphatase", "LDH"] },
+      { label: "Every 3 weeks", tests: ["PSA"] }
     ]
-  },
-  {
-    key:"GU-Pazopanib-RCC", cat:"GU", bcc:true,
-    name:"Pazopanib [RCC — 1st Line]",
-    cycle:28,
-    notes:"800 mg daily on empty stomach (1h before or 2h after food). BC Cancer GUPAZO.",
-    drugs:[
-      { name:"Pazopanib", dose:800, unit:"mg", basis:"flat", max:null, route:"PO daily (fasting)", days:"Daily", reducible:true, note:"Dose levels: 800 mg → 600 mg → 400 mg; must take on empty stomach" }
-    ]
-  },
-  {
-    key:"GU-Axitinib-RCC", cat:"GU", bcc:true,
-    name:"Axitinib [RCC — 2nd Line]",
-    cycle:28,
-    notes:"Starting 5 mg BID. Titrate to 7 mg then 10 mg BID if tolerated and no dose-limiting toxicity. BC Cancer GUAXIT.",
-    drugs:[
-      { name:"Axitinib", dose:5, unit:"mg", basis:"flat", max:null, route:"PO BID", days:"Daily BID", reducible:true, note:"Starting 5 mg BID; escalate to 7 mg → 10 mg BID if tolerated" }
-    ]
-  },
-  {
-    key:"GU-Cabozantinib-RCC", cat:"GU", bcc:true,
-    name:"Cabozantinib [RCC — 2nd Line]",
-    cycle:28,
-    notes:"Multi-kinase inhibitor (VEGFR, MET, AXL). BC Cancer GUCABO.",
-    drugs:[
-      { name:"Cabozantinib", dose:60, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Daily", reducible:true, note:"Dose levels: 60 mg → 40 mg → 20 mg" }
-    ]
-  },
-  {
-    key:"GU-Everolimus-RCC", cat:"GU", bcc:true,
-    name:"Everolimus [RCC — Post-VEGFR TKI / TSC-AML]",
-    cycle:28,
-    notes:"mTOR inhibitor. Post-VEGFR TKI failure; also for TSC-associated angiomyolipoma. Pneumonitis risk. BC Cancer GUEVER / GUOTEVER.",
-    drugs:[
-      { name:"Everolimus", dose:10, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Daily", reducible:true, note:"Dose levels: 10 mg → 5 mg → 2.5 mg; monitor for pneumonitis" }
-    ]
-  },
-  {
-    key:"GU-Temsirolimus-RCC", cat:"GU", bcc:true,
-    name:"Temsirolimus [RCC — Poor Prognosis 1st Line]",
-    cycle:28,
-    notes:"mTOR inhibitor for poor-prognosis RCC (≥3 risk factors). Weekly IV flat dose. Premedicate with diphenhydramine 25–50 mg IV. BC Cancer GUTEM.",
-    drugs:[
-      { name:"Temsirolimus", dose:25, unit:"mg", basis:"flat", max:null, route:"IV over 30–60 min", days:"Weekly (Days 1, 8, 15, 22)", reducible:true, note:"Premedicate: diphenhydramine 25–50 mg IV; dose levels: 25 mg → 20 mg → 15 mg" }
-    ]
-  },
-  {
-    key:"GU-Sorafenib-RCC", cat:"GU", bcc:true,
-    name:"Sorafenib [RCC — Post-Cytokine / Salvage]",
-    cycle:28,
-    notes:"400 mg BID continuously. Largely superseded by newer agents. BC Cancer GUSORAF.",
-    drugs:[
-      { name:"Sorafenib", dose:400, unit:"mg", basis:"flat", max:null, route:"PO BID", days:"Daily BID", reducible:true, note:"Dose levels: 400 mg BID → 400 mg daily → 400 mg every other day; monitor BP" }
-    ]
-  },
-  {
-    key:"GU-Belzutifan-VHL", cat:"GU", bcc:true,
-    name:"Belzutifan [RCC — VHL Disease-Associated]",
-    cycle:30,
-    notes:"HIF-2alpha inhibitor for VHL disease-associated ccRCC, hemangioblastomas, or pNETs. Daily O₂ sat monitoring first 2 weeks. Dose levels: 120 mg → 80 mg → 40 mg. BC Cancer UGUVHLBEL.",
-    drugs:[
-      { name:"Belzutifan", dose:120, unit:"mg", basis:"flat", max:null, route:"PO daily", days:"Daily (continuous)", reducible:true, note:"Monitor Hgb and O₂ sat; anemia risk" }
-    ]
-  },
+  }
+},
 
-  // =========================================================
-  // GU — Adrenal / GU Small Cell / Other
-  // =========================================================
+// mCSPC — Darolutamide + Docetaxel
+{
+  key: "GU-UGUMCSPDD",
+  cat: "GU",
+  bcc: true,
+  name: "UGUMCSPDD - Darolutamide + DOCEtaxel [Prostate — mCSPC]",
+  cycle: 21,
+  notes: "mCSPC. CAP approval required. Darolutamide 600 mg BID continuous + DOCEtaxel x 6 cycles, then darolutamide monotherapy until progression. Must discontinue antiandrogen (e.g. bicalutamide) before starting. Dose level −1 for darolutamide: 300 mg BID.",
+  drugs: [
+    {
+      name: "darolutamide",
+      dose: 600,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Cycles 1–6: with DOCEtaxel; Cycles 7+: monotherapy. Reduce to 300 mg BID for Grade ≥3 toxicity.",
+      levels: [300]
+    },
+    {
+      name: "DOCEtaxel",
+      dose: 75,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 250–500 mL NS over 1 hour",
+      days: "Day 1 (Cycles 1–6 only)",
+      reducible: true,
+      note: "Use non-DEHP equipment. 75% dose after neutropenic sepsis."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "GGT", "albumin", "INR", "PSA", "testosterone", "blood pressure"],
+    cycle: ["CBC & Diff", "PSA"],
+    conditional: [
+      { label: "Before DOCEtaxel Cycle 4 and if clinically indicated", tests: ["total bilirubin", "ALT", "alkaline phosphatase", "LDH", "testosterone"] },
+      { label: "Cycles 7+ (each physician visit)", tests: ["PSA", "blood pressure"] }
+    ]
+  }
+},
 
-  {
-    key:"GU-Dox-Adrenal", cat:"GU", bcc:true,
-    name:"Doxorubicin [Adrenocortical Carcinoma — Palliative]",
-    cycle:21,
-    notes:"Doxorubicin monotherapy for adrenocortical carcinoma. Palliative. BC Cancer GUAVD.",
-    drugs:[
-      { name:"DOXOrubicin", dose:60, unit:"mg/m²", basis:"bsa", max:null, route:"IV push", days:"Day 1", reducible:true }
+// mCRPC — Cabazitaxel
+{
+  key: "GU-GUPCABA",
+  cat: "GU",
+  bcc: true,
+  name: "GUPCABA - CabazitAXEL + predniSONE [Prostate — mCRPC]",
+  cycle: 21,
+  notes: "mCRPC post-DOCEtaxel or post-NHA therapy. Up to 10 cycles. Maintain ADT. Premedications required 45 min prior: dexamethasone 8 mg IV, diphenhydrAMINE 50 mg IV, famotidine 20 mg IV.",
+  drugs: [
+    {
+      name: "cabazitaxel",
+      dose: 25,
+      unit: "mg/m²",
+      basis: "bsa",
+      max: null,
+      weightCap: null,
+      route: "IV in 100–250 mL NS over 60 min",
+      days: "Day 1",
+      reducible: true,
+      note: "Use non-DEHP 0.2 micron in-line filter."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID. May substitute dexamethasone 1.5 mg PO daily."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "total bilirubin", "ALT", "creatinine", "sodium", "potassium"],
+    cycle: ["CBC & Diff", "platelets"],
+    conditional: [
+      { label: "Every 3 weeks", tests: ["PSA"] },
+      { label: "If clinically indicated", tests: ["creatinine", "total bilirubin"] }
     ]
-  },
-  {
-    key:"GU-EDP-M-Adrenal", cat:"GU", bcc:true,
-    name:"EDP-M [Adrenocortical Carcinoma — 1st Line Palliative]",
-    cycle:28,
-    notes:"Etoposide + Doxorubicin + Cisplatin + Mitotane. ×4–6 cycles. Mitotane is adrenolytic — mandatory steroid replacement throughout. Target mitotane serum 14–20 mg/L. BC Cancer GUEDPM.",
-    drugs:[
-      { name:"DOXOrubicin",         dose:40,   unit:"mg/m²", basis:"bsa",  max:null, route:"IV",                    days:"Day 1",      reducible:true },
-      { name:"Etoposide",           dose:100,  unit:"mg/m²", basis:"bsa",  max:null, route:"IV",                    days:"Days 1–3",   reducible:true },
-      { name:"CISplatin",           dose:40,   unit:"mg/m²", basis:"bsa",  max:null, route:"IV",                    days:"Days 1, 2",  reducible:true },
-      { name:"Mitotane",            dose:2000, unit:"mg",    basis:"flat", max:null, route:"PO divided doses",      days:"Daily (dose-escalate to target 14–20 mg/L)", reducible:false, note:"Mandatory steroid replacement; starting dose 2 g/day divided" },
-      { name:"Cortisone Acetate",   dose:25,   unit:"mg",    basis:"flat", max:null, route:"PO AM (+ 12.5 mg PM)",  days:"Daily",      reducible:false, note:"Adrenal replacement — mandatory with mitotane" }
+  }
+},
+
+// Abiraterone — mCRPC
+{
+  key: "GU-UGUPABI",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPABI - Abiraterone + predniSONE [Prostate — mCRPC]",
+  cycle: 30,
+  notes: "mCRPC (chemo-naive or post-DOCEtaxel). CAP approval required. Maintain ADT. One cycle = 30 days. Cycles 1–3: dispense 30-day supply; Cycles 4+: dispense 90-day supply. Monitor potassium and blood pressure closely; q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "abiraterone",
+      dose: 1000,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily (fasting)",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Hold and reduce by 250 mg for bilirubin >3x ULN or ALT >5x ULN; resume only after recovery to Grade 1."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID, or 5 mg daily. May substitute dexamethasone."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "PSA", "testosterone"],
+    cycle: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "blood pressure", "PSA"],
+    conditional: [
+      { label: "Cycles 1–3, every 2 weeks", tests: ["potassium", "ALT", "alkaline phosphatase", "total bilirubin", "blood pressure"] }
     ]
-  },
-  {
-    key:"GU-PE-SmallCell", cat:"GU", bcc:true,
-    name:"CISplatin/CARBOplatin + Etoposide [GU Small Cell / High-Grade NEC]",
-    cycle:21,
-    notes:"Small cell bladder, prostate, or other high-grade neuroendocrine GU tumour. Carboplatin AUC 5 if cisplatin-ineligible (age >75 or comorbidity). For concurrent RT add to schedule as per GUSCPERT. BC Cancer GUSCPE / GUSCPERT.",
-    drugs:[
-      { name:"CISplatin",  dose:25,  unit:"mg/m²", basis:"bsa", max:null, route:"IV",  days:"Days 1–3", reducible:true, note:"Alternative if cisplatin-ineligible: carboplatin AUC 5 IV Day 1 only" },
-      { name:"Etoposide",  dose:100, unit:"mg/m²", basis:"bsa", max:null, route:"IV",  days:"Days 1–3", reducible:true }
+  }
+},
+
+// Abiraterone — adjuvant (very high-risk nmCSPC post-RP/RT)
+{
+  key: "GU-UGUPAJABI",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPAJABI - Abiraterone + predniSONE [Prostate — Adjuvant, Very High-Risk nmCSPC]",
+  cycle: 30,
+  notes: "Castration sensitive very high-risk non-metastatic prostate cancer planned for curative radiotherapy. CAP approval required. Maximum 25 cycles (2 years). Maintain ADT. One cycle = 30 days. Cycles 1–3: 30-day supply; Cycles 4+: 90-day supply. Monitor potassium and blood pressure q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "abiraterone",
+      dose: 1000,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily (fasting)",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Hold and reduce by 250 mg for bilirubin >3x ULN or ALT >5x ULN; resume only after recovery to Grade 1."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID, or 5 mg daily. May substitute dexamethasone."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "PSA", "testosterone"],
+    cycle: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "blood pressure", "PSA"],
+    conditional: [
+      { label: "Cycles 1–3, every 2 weeks", tests: ["potassium", "ALT", "total bilirubin", "alkaline phosphatase", "blood pressure"] }
     ]
-  },
+  }
+},
+
+// Abiraterone — mCSPC
+{
+  key: "GU-GUMCSPABI",
+  cat: "GU",
+  bcc: true,
+  name: "GUMCSPABI - Abiraterone + predniSONE [Prostate — mCSPC]",
+  cycle: 30,
+  notes: "mCSPC (chemo-naive or post-DOCEtaxel). Not for sequential use with enzalutamide, apalutamide, or darolutamide+docetaxel for mCSPC. Maintain ADT. One cycle = 30 days. Cycles 1–3: 30-day supply; Cycles 4+: 90-day supply. Monitor potassium and BP q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "abiraterone",
+      dose: 1000,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily (fasting)",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Hold and reduce by 250 mg for bilirubin >3x ULN or ALT >5x ULN; resume only after recovery to Grade 1."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID, or 5 mg daily. May substitute dexamethasone."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "testosterone", "PSA"],
+    cycle: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "blood pressure", "PSA"],
+    conditional: [
+      { label: "Cycles 1–3, every 2 weeks", tests: ["potassium", "ALT", "total bilirubin", "alkaline phosphatase", "blood pressure"] }
+    ]
+  }
+},
+
+// Niraparib-abiraterone — mCRPC (BRCA1/2)
+{
+  key: "GU-UGUPAVNABI",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPAVNABI - Niraparib-Abiraterone + predniSONE [Prostate — mCRPC, BRCA1/2]",
+  cycle: 30,
+  notes: "mCRPC with BRCA1/2 mutation; not candidate for chemotherapy. CAP approval required. Fixed-dose combination tablet (niraparib 200 mg + abiraterone 1000 mg) once daily. Maintain ADT. Dose level −1 (hematologic): 100 mg–1000 mg once daily. Dose level −1 (hepatotoxicity): 100 mg–500 mg once daily. Monitor CBC weekly for first 2 months.",
+  drugs: [
+    {
+      name: "niraparib-abiraterone",
+      dose: 200,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Fixed-dose combination: 200 mg niraparib + 1000 mg abiraterone per dose. Reduce to 100 mg–1000 mg (hematologic) or 100 mg–500 mg (hepatotoxicity) at dose level −1.",
+      levels: [100]
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID, or 5 mg daily. May substitute dexamethasone."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "PSA", "testosterone", "blood pressure"],
+    cycle: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "blood pressure", "PSA"],
+    conditional: [
+      { label: "Cycle 1, Days 8 and 22", tests: ["CBC & Diff"] },
+      { label: "Cycles 1–3, Day 15", tests: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "potassium"] },
+      { label: "Cycles 1 and 2 (weekly)", tests: ["blood pressure"] }
+    ]
+  }
+},
+
+// Olaparib-abiraterone — mCRPC (BRCA1/2)
+{
+  key: "GU-UGUPAVOABI",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPAVOABI - Olaparib + Abiraterone + predniSONE [Prostate — mCRPC, BRCA1/2]",
+  cycle: 30,
+  notes: "mCRPC with BRCA1/2 mutation; not candidate for chemotherapy. CAP approval required. Maintain ADT. Olaparib dose levels: 300 mg BID (0), 250 mg BID (−1), 200 mg BID (−2). Abiraterone: hold and reduce by 250 mg for severe hepatotoxicity. Monitor BP q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "olaparib",
+      dose: 300,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Dispense in original manufacturer container with desiccant. Reduce to 200 mg BID if CrCl 31–50 mL/min.",
+      levels: [250, 200]
+    },
+    {
+      name: "abiraterone",
+      dose: 1000,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily (fasting)",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Hold and reduce by 250 mg for bilirubin >3x ULN or ALT >5x ULN."
+    },
+    {
+      name: "predniSONE",
+      dose: 10,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO daily",
+      days: "Daily (continuous)",
+      reducible: false,
+      note: "Or 5 mg BID, or 5 mg daily. May substitute dexamethasone."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "PSA", "testosterone"],
+    cycle: ["CBC & Diff", "total bilirubin", "ALT", "alkaline phosphatase", "creatinine", "random glucose", "sodium", "potassium", "blood pressure", "PSA"],
+    conditional: [
+      { label: "Cycles 1–3, every 2 weeks", tests: ["potassium", "ALT", "total bilirubin", "alkaline phosphatase", "blood pressure"] },
+      { label: "Day 14 if clinically indicated", tests: ["CBC & Diff"] }
+    ]
+  }
+},
+
+// Enzalutamide — mCRPC
+{
+  key: "GU-UGUPENZ",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPENZ - Enzalutamide [Prostate — mCRPC]",
+  cycle: null,
+  notes: "mCRPC (chemo-naive or post-DOCEtaxel). CAP approval required. Maintain ADT; discontinue other antiandrogens (e.g. bicalutamide). Dispense 90-day supply. Dose level −1: 120 mg daily; dose level −2: 80 mg daily. Monitor BP q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "enzalutamide",
+      dose: 160,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Reduce to 80 mg daily if combined with strong CYP2C8 inhibitor (e.g. gemfibrozil).",
+      levels: [120, 80]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "PSA", "testosterone", "blood pressure"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Enzalutamide — adjuvant (high-risk nmCSPC biochemical recurrence)
+{
+  key: "GU-UGUPAJENZ",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPAJENZ - Enzalutamide [Prostate — Adjuvant, High-Risk nmCSPC, Biochemical Recurrence]",
+  cycle: null,
+  notes: "Castration sensitive high-risk non-metastatic prostate cancer with biochemical recurrence post-RP or RT (PSA doubling time ≤9 months). CAP approval required. Salvage RT should be considered first. May give with or without ADT (preferred with ADT). Hold if PSA <0.2 ng/mL after 36 weeks; restart per physician discretion. Dose levels: −1: 120 mg; −2: 80 mg.",
+  drugs: [
+    {
+      name: "enzalutamide",
+      dose: 160,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Reduce to 80 mg daily if combined with strong CYP2C8 inhibitor.",
+      levels: [120, 80]
+    }
+  ],
+  labs: {
+    baseline: ["PSA", "testosterone", "blood pressure"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "Baseline if clinically indicated", tests: ["ECG", "CBC & Diff", "creatinine", "sodium", "potassium"] },
+      { label: "If clinically indicated", tests: ["creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Enzalutamide — mCSPC
+{
+  key: "GU-GUMCSPENZ",
+  cat: "GU",
+  bcc: true,
+  name: "GUMCSPENZ - Enzalutamide [Prostate — mCSPC]",
+  cycle: null,
+  notes: "mCSPC (chemo-naive or post-DOCEtaxel). Not for sequential use with apalutamide, abiraterone, or darolutamide+docetaxel for mCSPC. Maintain ADT; discontinue other antiandrogens. Dispense 90-day supply. Dose level −1: 120 mg; −2: 80 mg. Monitor BP q2 weeks for first 3 months.",
+  drugs: [
+    {
+      name: "enzalutamide",
+      dose: 160,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Reduce to 80 mg daily if combined with strong CYP2C8 inhibitor.",
+      levels: [120, 80]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "blood pressure", "PSA", "testosterone"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Enzalutamide — nmCRPC
+{
+  key: "GU-UGUNMPENZ",
+  cat: "GU",
+  bcc: true,
+  name: "UGUNMPENZ - Enzalutamide [Prostate — nmCRPC]",
+  cycle: null,
+  notes: "Non-metastatic CRPC (PSA doubling time ≤10 months). CAP approval required. Maintain ADT; discontinue other antiandrogens. Dispense 90-day supply. Dose level −1: 120 mg; −2: 80 mg. On progression to mCRPC: eligible for DOCEtaxel, cabazitaxel, radium-223; NOT eligible for enzalutamide or abiraterone.",
+  drugs: [
+    {
+      name: "enzalutamide",
+      dose: 160,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Reduce to 80 mg daily if combined with strong CYP2C8 inhibitor.",
+      levels: [120, 80]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "PSA", "testosterone", "blood pressure"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Apalutamide — nmCRPC
+{
+  key: "GU-UGUPAPA",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPAPA - Apalutamide [Prostate — nmCRPC]",
+  cycle: null,
+  notes: "Non-metastatic CRPC (PSA doubling time ≤10 months). CAP approval required. Maintain ADT; discontinue other antiandrogens. Dispense 90-day supply in original container. Dose level −1: 180 mg; −2: 120 mg. Monitor TSH. On progression to mCRPC: eligible for DOCEtaxel, cabazitaxel, radium-223; NOT eligible for enzalutamide or abiraterone.",
+  drugs: [
+    {
+      name: "apalutamide",
+      dose: 240,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Monitor for rash (25% incidence) and hypothyroidism (up to 22%). Seizure risk.",
+      levels: [180, 120]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "testosterone", "blood pressure", "TSH", "PSA"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["TSH", "creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Apalutamide — mCSPC
+{
+  key: "GU-GUMCSPAPA",
+  cat: "GU",
+  bcc: true,
+  name: "GUMCSPAPA - Apalutamide [Prostate — mCSPC]",
+  cycle: null,
+  notes: "mCSPC (chemo-naive or post-DOCEtaxel). Not for sequential use with enzalutamide, abiraterone, or darolutamide+docetaxel for mCSPC. Maintain ADT; discontinue other antiandrogens. Dispense 90-day supply in original container. Dose level −1: 180 mg; −2: 120 mg. Monitor TSH.",
+  drugs: [
+    {
+      name: "apalutamide",
+      dose: 240,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Monitor for rash and hypothyroidism. Seizure risk.",
+      levels: [180, 120]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "blood pressure", "TSH", "PSA", "testosterone"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["TSH", "creatinine", "sodium", "potassium", "testosterone", "ECG"] }
+    ]
+  }
+},
+
+// Darolutamide — nmCRPC
+{
+  key: "GU-UGUNMPDAR",
+  cat: "GU",
+  bcc: true,
+  name: "UGUNMPDAR - Darolutamide [Prostate — nmCRPC]",
+  cycle: null,
+  notes: "Non-metastatic CRPC (PSA doubling time ≤10 months). CAP approval required. Maintain ADT; discontinue other antiandrogens. Dispense 90-day supply. Dose level −1: 300 mg BID. Moderate hepatic impairment (Child-Pugh B): reduce to 300 mg BID. CrCl 15–29: reduce to 300 mg BID.",
+  drugs: [
+    {
+      name: "darolutamide",
+      dose: 600,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Reduce to 300 mg BID for Grade ≥3 toxicity, moderate hepatic impairment, or CrCl 15–29 mL/min.",
+      levels: [300]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "albumin", "total bilirubin", "alkaline phosphatase", "GGT", "INR", "ALT", "creatinine", "sodium", "potassium", "PSA", "testosterone", "blood pressure"],
+    cycle: ["PSA", "blood pressure"],
+    conditional: [
+      { label: "If clinically indicated", tests: ["albumin", "total bilirubin", "INR", "ALT", "creatinine", "sodium", "potassium", "TSH", "ECG", "HbA1c", "calcium", "random glucose", "testosterone"] }
+    ]
+  }
+},
+
+// Radiopharmaceutical — Lutetium-177 PSMA
+{
+  key: "GU-UGUPLVT",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPLVT - 177Lu Vipivotide Tetraxetan (PLUVICTO) [Prostate — mCRPC, PSMA+]",
+  cycle: 42,
+  notes: "mCRPC post-ARPI and post-taxane. PSMA-PET required (all lesions ≥2.5 cm PSMA-positive). CAP approval required. Max 6 doses every 6 weeks. Must be administered in licensed facility by qualified radiopharmaceutical personnel. Dose reduction by 20% (to 5.9 GBq / 160 mCi) once only. Interval may extend to 10 weeks for AE recovery.",
+  drugs: [
+    {
+      name: "177Lu vipivotide tetraxetan",
+      dose: 7400,
+      unit: "MBq",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "Slow IV push over 1–10 minutes",
+      days: "Day 1 every 6 weeks (max 6 doses)",
+      reducible: true,
+      note: "7.4 GBq (200 mCi). Reduce by 20% to 5.9 GBq (160 mCi) once for Grade 3–4 hematologic, renal, or other toxicity. Administered in shielded room under CNSC-licensed facility.",
+      levels: [5900]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "albumin", "total bilirubin", "ALT", "alkaline phosphatase", "PSA", "testosterone"],
+    cycle: ["CBC & Diff", "creatinine", "albumin", "total bilirubin", "ALT", "alkaline phosphatase", "PSA"],
+    conditional: [
+      { label: "7 days prior to all treatments and on Day 21", tests: ["CBC & Diff", "creatinine", "albumin", "total bilirubin", "ALT", "alkaline phosphatase"] },
+      { label: "If clinically indicated", tests: ["calcium", "sodium", "potassium"] }
+    ]
+  }
+},
+
+// Radiopharmaceutical — Radium-223
+{
+  key: "GU-GUPRAD",
+  cat: "GU",
+  bcc: true,
+  name: "GUPRAD - Radium-223 [Prostate — mCRPC, Bone Metastases]",
+  cycle: 28,
+  notes: "mCRPC with symptomatic bone metastases, no liver/lung/brain metastases. 6 cycles every 4 weeks. Weight-based dosing. Delay dose if counts insufficient; discontinue if no recovery within 6 weeks. Radium-223 should not be used concurrently with abiraterone. Alpha emitter — standard body fluid precautions apply.",
+  drugs: [
+    {
+      name: "radium-223",
+      dose: 55,
+      unit: "kBq/kg",
+      basis: "weight",
+      max: null,
+      weightCap: null,
+      route: "IV bolus over 1 minute",
+      days: "Day 1 every 4 weeks (x 6 cycles)",
+      reducible: false,
+      note: "No dose modification by hepatic or renal function. Delay for count recovery only."
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "platelets", "creatinine", "sodium", "albumin", "total bilirubin", "alkaline phosphatase", "ALT", "PSA"],
+    cycle: ["CBC & Diff", "platelets", "creatinine", "total bilirubin", "alkaline phosphatase", "ALT", "PSA"],
+    conditional: []
+  }
+},
+
+// ADT — Androgen Deprivation Therapy
+{
+  key: "GU-GUPADT",
+  cat: "GU",
+  bcc: true,
+  name: "GUPADT - Androgen Deprivation Therapy [Prostate]",
+  cycle: null,
+  notes: "Injectable options: goserelin 3.6 mg SC monthly or 10.8 mg SC q3 months; leuprolide 7.5 mg IM monthly, 22.5 mg q3 months, 30 mg q4 months (Lupron Depot), or equivalent Eligard doses; degarelix 240 mg SC loading (2 injections of 120 mg) then 80 mg SC monthly. Oral option: relugolix 360 mg PO loading dose Day 1, then 120 mg PO daily. Add anti-androgen (bicalutamide 50 mg daily, preferred; or flutamide 250 mg TID) to block LHRH agonist flare (start 1–2 weeks before LHRH agonist). Degarelix and relugolix do not cause testosterone surge — anti-androgen not required.",
+  drugs: [
+    {
+      name: "goserelin (or leuprolide)",
+      dose: 10.8,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "SC every 3 months",
+      days: "Every 3 months (or monthly at 3.6 mg)",
+      reducible: false,
+      note: "LHRH agonist — multiple dosing intervals available. Add anti-androgen for first 3–4 weeks to prevent flare."
+    },
+    {
+      name: "relugolix",
+      dose: 120,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO once daily",
+      days: "Daily after 360 mg loading dose on Day 1",
+      reducible: false,
+      note: "Oral GnRH antagonist. If interrupted >7 days, restart with 360 mg loading dose. No anti-androgen flare prophylaxis needed."
+    }
+  ],
+  labs: {
+    baseline: [],
+    cycle: [],
+    conditional: [
+      { label: "If clinically indicated, at baseline and throughout", tests: ["PSA", "testosterone", "potassium", "sodium", "calcium", "magnesium", "ECG"] },
+      { label: "Every 3 months if taking flutamide", tests: ["total bilirubin", "ALT", "alkaline phosphatase"] }
+    ]
+  }
+},
+
+// PARP inhibitor — Olaparib monotherapy (mCRPC, HRR-mutated)
+{
+  key: "GU-UGUPOLAP",
+  cat: "GU",
+  bcc: true,
+  name: "UGUPOLAP - Olaparib [Prostate — mCRPC, HRR-Mutated (BRCA1/2 or ATM)]",
+  cycle: 28,
+  notes: "mCRPC with BRCA1/2 or ATM mutation; progressed on prior ARAT therapy (enzalutamide, abiraterone, apalutamide, or darolutamide). CAP approval required. Dispense 30-day supply in original container. Dose level −1: 250 mg BID; level −2: 200 mg BID. Reduce to 200 mg BID if CrCl 31–50 mL/min. Not recommended if CrCl ≤30 mL/min.",
+  drugs: [
+    {
+      name: "olaparib",
+      dose: 300,
+      unit: "mg",
+      basis: "flat",
+      max: null,
+      weightCap: null,
+      route: "PO twice daily",
+      days: "Daily (continuous)",
+      reducible: true,
+      note: "Dispense in original manufacturer container with desiccant. Reduce to 200 mg BID if CrCl 31–50 mL/min.",
+      levels: [250, 200]
+    }
+  ],
+  labs: {
+    baseline: ["CBC & Diff", "creatinine", "sodium", "potassium", "ALT", "total bilirubin", "alkaline phosphatase"],
+    cycle: ["CBC & Diff", "PSA"],
+    conditional: [
+      { label: "Day 14 if clinically indicated", tests: ["CBC & Diff"] },
+      { label: "If clinically indicated", tests: ["creatinine", "sodium", "potassium", "ALT", "total bilirubin", "alkaline phosphatase", "albumin", "GGT", "LDH", "urea"] }
+    ]
+  }
+},
+
+// Keep as-is — no PDF
+{
+  key: "GU-Mitox-Pred-mCRPC",
+  cat: "GU",
+  bcc: true,
+  name: "Mitoxantrone + Prednisone [Prostate — mCRPC Palliative]",
+  cycle: 21,
+  notes: "Palliative mCRPC. Maximum 8–10 cycles. Lifetime anthracycline limit applies.",
+  drugs: [
+    { name: "Mitoxantrone", dose: 12,  unit: "mg/m²", basis: "bsa",  max: null, weightCap: null, route: "IV over 15–30 min", days: "Day 1",           reducible: true  },
+    { name: "predniSONE",   dose: 10,  unit: "mg",    basis: "flat", max: null, weightCap: null, route: "PO daily",          days: "Daily (continuous)", reducible: false }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-Dox-Adrenal",
+  cat: "GU",
+  bcc: true,
+  name: "DOXOrubicin [Adrenocortical Carcinoma — Palliative]",
+  cycle: 21,
+  notes: "Single-agent doxorubicin for adrenocortical carcinoma. Monitor cumulative anthracycline dose.",
+  drugs: [
+    { name: "DOXOrubicin", dose: 60, unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV", days: "Day 1", reducible: true }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-EDP-M-Adrenal",
+  cat: "GU",
+  bcc: true,
+  name: "EDP-M [Adrenocortical Carcinoma]",
+  cycle: 28,
+  notes: "Etoposide + Doxorubicin + Cisplatin + Mitotane for advanced ACC. Mitotane requires therapeutic drug monitoring (target 14–20 mg/L).",
+  drugs: [
+    { name: "Etoposide",   dose: 100,  unit: "mg/m²", basis: "bsa",  max: null, weightCap: null, route: "IV",       days: "Days 5–7",    reducible: true  },
+    { name: "DOXOrubicin", dose: 40,   unit: "mg/m²", basis: "bsa",  max: null, weightCap: null, route: "IV",       days: "Day 1",       reducible: true  },
+    { name: "CISplatin",   dose: 40,   unit: "mg/m²", basis: "bsa",  max: null, weightCap: null, route: "IV",       days: "Days 1, 9",   reducible: true  },
+    { name: "Mitotane",    dose: 4000, unit: "mg",    basis: "flat", max: null, weightCap: null, route: "PO daily", days: "Continuous",  reducible: true, note: "Target plasma level 14–20 mg/L; requires TDM" }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
+
+{
+  key: "GU-PE-SmallCell",
+  cat: "GU",
+  bcc: true,
+  name: "Cisplatin + Etoposide [GU Small Cell / Neuroendocrine]",
+  cycle: 21,
+  notes: "Small-cell or high-grade neuroendocrine GU carcinoma. See also GUSCPE (BC Cancer code) for chemoRT option.",
+  drugs: [
+    { name: "CISplatin", dose: 75,  unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV", days: "Day 1",    reducible: true },
+    { name: "Etoposide", dose: 100, unit: "mg/m²", basis: "bsa", max: null, weightCap: null, route: "IV", days: "Days 1–3", reducible: true }
+  ],
+  labs: { baseline: [], cycle: [], conditional: [] }
+},
 
   // =========================================================
   // GYNE
