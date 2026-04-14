@@ -740,6 +740,28 @@ const PROTOCOLS = [
     ]
   },
 
+  {
+    key:"LYPOLARCHP", cat:"Lymphoma", bcc:true,
+    name:"LYPOLARCHP — Pola-R-CHP [DLBCL, ABC subtype — 1st Line]",
+    cycle:21,
+    notes:"Previously untreated CD20+ DLBCL, ABC subtype (confirmed by GEP; IHC non-GCB acceptable if GEP not feasible). IPI 2–5. 6 cycles q21d. Cycle 1: riTUXimab on Day 2 IV; Cycles 2–6: Day 1 IV 375 mg/m² or SC 1400 mg if prior IV tolerated. Polatuzumab vedotin: 90 min infusion Cycle 1, 30 min subsequent cycles if tolerated. Elderly (>75 yr): start DOXOrubicin and cyclophosphamide at 75% Cycle 1, escalate as tolerated. Patients who received ≤2 cycles LYCHOPR may switch to complete 6 total. BC Cancer LYPOLARCHP (Feb 2026).",
+    drugs:[
+      { name:"predniSONE",          dose:100,  unit:"mg",     basis:"flat",   max:null, weightCap:null, route:"PO morning with food",                           days:"Days 1–5",              reducible:false },
+      { name:"DOXOrubicin",         dose:50,   unit:"mg/m²",  basis:"bsa",    max:null, weightCap:null, route:"IV push",                                        days:"Day 1",                 reducible:true,  levels:[37.5, 25],  note:"Bili 35–85 µmol/L: give 50%. Bili >85 µmol/L: omit; add cyclophosphamide 350 mg/m² extra" },
+      { name:"Cyclophosphamide",    dose:750,  unit:"mg/m²",  basis:"bsa",    max:null, weightCap:null, route:"IV over 20 min–1h",                              days:"Day 1",                 reducible:true,  levels:[562.5, 375] },
+      { name:"Polatuzumab vedotin", dose:1.8,  unit:"mg/kg",  basis:"weight", max:null, weightCap:null, route:"IV over 90 min (Cycle 1) / 30 min (Cycles 2–6)", days:"Day 1",                 reducible:true,  levels:[1.4, 1.0],  note:"Avoid moderate-severe hepatic impairment (bili >1.5× ULN). Monitor for neuropathy and infusion reactions." },
+      { name:"riTUXimab",           dose:375,  unit:"mg/m²",  basis:"bsa",    max:null, weightCap:null, route:"IV (Cycle 1 Day 2); IV or SC from Cycle 2",      days:"Day 1 (Day 2, Cycle 1)", reducible:false,                     note:"Cycles 2–6: SC 1400 mg fixed dose if prior IV tolerated. No dose modifications." },
+      { name:"filgrastim",          dose:300,  unit:"mcg",    basis:"flat",   max:null, weightCap:null, route:"Subcutaneous",                                   days:"Days 7–11",             reducible:false,                     note:"Weight-based: 300 mcg (≤75 kg), 480 mcg (76–110 kg), 600 mcg (>110 kg)" }
+    ],
+    labs:{
+      baseline:["CBC & Diff","total bilirubin","ALT","HBsAg","HBsAb","HBcoreAb"],
+      cycle:["CBC & Diff","total bilirubin","ALT"],
+      conditional:[
+        { label:"If clinically indicated", tests:["LDH","alkaline phosphatase","creatinine","HBV viral load"] }
+      ]
+    }
+  },
+
   // =========================================================
   // CLL / SLL
   // =========================================================
