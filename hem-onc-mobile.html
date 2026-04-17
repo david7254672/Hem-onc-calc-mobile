@@ -1092,6 +1092,7 @@ const PROTOCOLS = [
   // MULTIPLE MYELOMA
   // =========================================================
 
+  // Legacy entries (no BC Cancer PDF source)
   {
     key:"VRd", cat:"Multiple Myeloma",
     name:"VRd (Bortezomib, Lenalidomide, Dexamethasone)",
@@ -1101,7 +1102,8 @@ const PROTOCOLS = [
       { name:"Bortezomib (Velcade)",    dose:1.3, unit:"mg/m²", basis:"bsa",  max:null, route:"SubQ preferred", days:"Days 1, 4, 8, 11", reducible:true,  note:"SubQ preferred to reduce neuropathy" },
       { name:"Lenalidomide (Revlimid)", dose:25,  unit:"mg",    basis:"flat", max:null, route:"PO",             days:"Days 1–14",         reducible:false, note:"Renal dose-adjust: CrCl 30–59→10mg; CrCl<30→7.5mg" },
       { name:"Dexamethasone",           dose:20,  unit:"mg",    basis:"flat", max:null, route:"PO or IV",       days:"Days 1,2,4,5,8,9,11,12", reducible:false }
-    ]
+    ],
+    labs:{ baseline:[], cycle:[], conditional:[] }
   },
   {
     key:"CyBorD", cat:"Multiple Myeloma",
@@ -1112,7 +1114,8 @@ const PROTOCOLS = [
       { name:"Cyclophosphamide",     dose:300, unit:"mg/m²",  basis:"bsa",  max:null, route:"PO or IV",       days:"Days 1, 8, 15", reducible:true  },
       { name:"Bortezomib (Velcade)", dose:1.3, unit:"mg/m²",  basis:"bsa",  max:null, route:"SubQ",           days:"Days 1, 8, 15", reducible:true, note:"Weekly schedule; SubQ preferred" },
       { name:"Dexamethasone",        dose:20,  unit:"mg",     basis:"flat", max:null, route:"PO or IV",       days:"Days 1,2,8,9,15,16", reducible:false }
-    ]
+    ],
+    labs:{ baseline:[], cycle:[], conditional:[] }
   },
   {
     key:"Rd", cat:"Multiple Myeloma",
@@ -1122,7 +1125,1984 @@ const PROTOCOLS = [
     drugs:[
       { name:"Lenalidomide (Revlimid)", dose:25, unit:"mg", basis:"flat", max:null, route:"PO", days:"Days 1–21", reducible:false, note:"Renal dose-adjust required" },
       { name:"Dexamethasone",           dose:40, unit:"mg", basis:"flat", max:null, route:"PO", days:"Days 1, 8, 15, 22", reducible:false, note:"Reduce to 20 mg/week if age >75" }
-    ]
+    ],
+    labs:{ baseline:[], cycle:[], conditional:[] }
+  },
+
+  // BC Cancer MY / UMY protocols
+  {
+    key: "MY-MYBLDF",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYBLDF - bortezomib + lenalidomide + dexamethasone [Multiple Myeloma — Transplant-Ineligible, Frontline]",
+    cycle: 28,
+    notes: "Newly diagnosed multiple myeloma, ineligible for stem cell transplant. RevAid Program registration required for lenalidomide. Bortezomib given Cycles 1–8 only (Days 1, 8, 15); lenalidomide continued until progression. Dexamethasone dose adjustable per tolerability. VZV prophylaxis and anticoagulation required. Protocol MYBLDF.",
+    drugs: [
+      {
+        name: "bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15 (Cycles 1–8 only); may start at 1.5 mg/m²",
+        reducible: true,
+        note: "Cycles 1–8 only. Starting dose may be 1.5 mg/m² (dose level 0). Dose level table: 1.5 → 1.3 → 1.0 → 0.7 → 0.5 mg/m².",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Renal dose adjustment required: eGFR 30–59 → 10 mg; eGFR <30 (no dialysis) → 15 mg every other day. Dose level table: 25 → 20 → 15 → 10 → 5 → 2.5 mg.",
+        levels: [20, 15]
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Dose may vary per tolerability. Alternative: 20 mg PO weekly or predniSONE substitution. Continue even if lenalidomide held.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "TSH", "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 hours prior to initial prescription)"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "quantitative beta-hCG (if FCBP)"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 3 months (required for lenalidomide)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly x 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYBLDPRE",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYBLDPRE - lenalidomide + bortezomib + dexamethasone [Multiple Myeloma — Pre-Transplant Induction]",
+    cycle: 28,
+    notes: "Previously untreated multiple myeloma, eligible for autologous stem cell transplant (ASCT). Up to 6 cycles; stem cells ideally collected after cycles 3–4. RevAid Program registration required for lenalidomide. Last bortezomib dose ≥14 days prior to stem cell collection; last lenalidomide dose ≥21 days prior. VZV prophylaxis and anticoagulation required. Protocol MYBLDPRE.",
+    drugs: [
+      {
+        name: "bortezomib",
+        dose: 1.5,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22; may start at 1.3 mg/m²",
+        reducible: true,
+        note: "Preferred starting dose 1.5 mg/m² (dose level 0). Dose level table: 1.5 → 1.3 → 1.0 → 0.7 → 0.5 mg/m².",
+        levels: [1.3, 1.0]
+      },
+      {
+        name: "lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Renal dose adjustment: eGFR 30–59 → 10 mg; eGFR <30 (no dialysis) → 15 mg every other day. Dose level table: 25 → 20 → 15 → 10 → 5 → 2.5 mg.",
+        levels: [20, 15]
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Dose may vary per tolerability. Alternative: 20 mg PO weekly or predniSONE substitution. Continue even if lenalidomide held.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "TSH", "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 hours prior to initial prescription)"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "quantitative beta-hCG (if FCBP)"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 3 months (required for lenalidomide)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly x 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYBORPRE",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYBORPRE - bortezomib + dexamethasone ± cyclophosphamide [Multiple Myeloma/AL Amyloidosis — Pre-Transplant Induction]",
+    cycle: 28,
+    notes: "Previously untreated multiple myeloma or AL chain amyloidosis, eligible for ASCT. Preferred: once-weekly bortezomib (28-day cycle). Alternative: twice-weekly bortezomib (21-day cycle). Cyclophosphamide addition increases response and should be used when possible. Up to 6 cycles. Last bortezomib/cyclophosphamide dose ≥14 days prior to stem cell collection. VZV prophylaxis required. Protocol MYBORPRE.",
+    drugs: [
+      {
+        name: "bortezomib",
+        dose: 1.5,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22 (once-weekly preferred, 28-day cycle); or 1.3 mg/m² Days 1, 4, 8, 11 (twice-weekly option, 21-day cycle)",
+        reducible: true,
+        note: "Once-weekly preferred: start 1.5 mg/m² (may start 1.3). Twice-weekly option: 1.3 mg/m² fixed (1.5 mg/m² not permitted twice-weekly). Dose level table: 1.5 → 1.3 → 1.0 → 0.7 → 0.5 mg/m².",
+        levels: [1.3, 1.0]
+      },
+      {
+        name: "cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (once-weekly); or Days 1, 8, 15 (twice-weekly); or 50 mg every 2 days (alternative flat dosing)",
+        reducible: true,
+        note: "Optional but recommended to increase response. Alternative: 50 mg PO every 2 days.",
+        levels: null
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (once-weekly); or Days 1, 4, 8, 11 (twice-weekly, same days as bortezomib)",
+        reducible: false,
+        note: "Dose may vary per tolerability. Alternative: 20 mg PO weekly or predniSONE substitution.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels"
+      ],
+      conditional: [
+        {
+          label: "Prior to each cycle (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "platelets", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYBORREL",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYBORREL - bortezomib + dexamethasone ± cyclophosphamide [Multiple Myeloma/AL Amyloidosis — Relapsed]",
+    cycle: 28,
+    notes: "Relapsed multiple myeloma or AL chain amyloidosis; at least one prior therapy. Once-weekly bortezomib preferred (28-day cycle); twice-weekly option available (21-day cycle). Re-treatment appropriate if progression ≥1 month after completing bortezomib. Up to 8 cycles. VZV prophylaxis required. Protocol MYBORREL.",
+    drugs: [
+      {
+        name: "bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22 (once-weekly, 28-day cycle); may start at 1.5 mg/m²; or 1.3 mg/m² Days 1, 4, 8, 11 (twice-weekly, 21-day cycle)",
+        reducible: true,
+        note: "Once-weekly preferred. Starting dose may be 1.5 mg/m² (dose level 0). Dose level table: 1.5 → 1.3 → 1.0 → 0.7 → 0.5 mg/m². Twice-weekly: 1.5 mg/m² not permitted.",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (once-weekly); or Days 1, 8, 15 (twice-weekly); or 50 mg every 2 days (alternative flat dosing)",
+        reducible: true,
+        note: "Optional. Alternative: 50 mg PO every 2 days.",
+        levels: null
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (once-weekly); or Days 1, 4, 8, 11 (twice-weekly)",
+        reducible: false,
+        note: "Dose may vary per tolerability. Alternative: 20 mg PO weekly or predniSONE substitution.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels"
+      ],
+      conditional: [
+        {
+          label: "Prior to each cycle (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYBSD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYBSD - bortezomib + selinexor + dexamethasone ± cyclophosphamide [Multiple Myeloma — Relapsed]",
+    cycle: 28,
+    notes: "Relapsed multiple myeloma, plasma cell leukemia, or systemic light chain amyloidosis; ≥1 prior line. Requires bortezomib sensitivity (includes post-MYBORMTN maintenance relapse). For prior PI-exposed patients: must have had ≥PR to prior PI and ≥6-month interval. Patients on MYBORREL may switch if eligible. Selinexor dose may start at 60–80 mg with escalation to 100 mg weekly. VZV prophylaxis and antiemetic premedication required. Protocol MYBSD.",
+    drugs: [
+      {
+        name: "selinexor",
+        dose: 100,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (100 mg once weekly; may start at 60–80 mg and escalate)",
+        reducible: true,
+        note: "May start at 60 or 80 mg weekly and escalate to 100 mg if tolerated. Dose escalation to 120 mg (60 mg twice weekly) from Cycle 3 onward is an option for non-responders tolerating 100 mg. Dose level table: 100 mg (level 0) → 80 mg (level −1) → 60 mg (level −2) → 40 mg (level −3).",
+        levels: [80, 60]
+      },
+      {
+        name: "bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15",
+        reducible: true,
+        note: "Dose level table: 1.3 → 1.0 → 0.7 → 0.5 mg/m².",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "dexamethasone",
+        dose: 20,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 2, 8, 9, 15, 16, 22, 23 (take ≥1 hour before selinexor on selinexor days)",
+        reducible: false,
+        note: "Take in the morning with food. On selinexor days, administer at least 1 hour before selinexor. Dose may vary per tolerability.",
+        levels: null
+      },
+      {
+        name: "cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (if using); or 50 mg every 2 days (alternative)",
+        reducible: true,
+        note: "Optional. Alternative: 50 mg PO every 2 days.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "beta-2 microglobulin",
+        "ECG, phosphate, magnesium (if clinically indicated)"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels"
+      ],
+      conditional: [
+        {
+          label: "Days 8, 15, 22 of Cycle 1 (required)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "magnesium", "calcium"]
+        },
+        {
+          label: "Days 8, 15, 22 of Cycle 2+ (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["phosphate", "magnesium", "HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYCARLD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYCARLD - carfilzomib + lenalidomide + dexamethasone [Multiple Myeloma — Relapsed/Refractory]",
+    cycle: 28,
+    notes: "Relapsed/refractory multiple myeloma; ≥1 prior therapy. Requires lenalidomide sensitivity (includes post-MYLENMTN relapse) and bortezomib sensitivity or naïve. Not for lenalidomide-refractory (progression on non-maintenance lenalidomide regimen) or carfilzomib-refractory patients. BSA capped at 2.2 m² for carfilzomib. Carfilzomib funded for up to 18 cycles; after cycle 18 lenalidomide/dexamethasone continued. Cycle 1 pre-hydration with 250 mL NS required. RevAid Program registration required. Protocol MYCARLD.",
+    drugs: [
+      {
+        name: "carfilzomib",
+        dose: 56,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "IV",
+        days: "Cycle 1: 20 mg/m² Day 1, then 56 mg/m² Days 8 and 15; Cycles 2–18: 56 mg/m² Days 1, 8, 15 (BSA capped at 2.2 m²)",
+        reducible: true,
+        note: "Cycle 1 Day 1 dose is 20 mg/m² (ramp-up). IV in 100 mL D5W over 30 min. Vital signs prior to each infusion; observe 30 min post-infusion in Cycle 1 only. Dose level table: 56 → 45 → 36 → 27 mg/m².",
+        levels: [45, 36]
+      },
+      {
+        name: "lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Renal dose adjustment: eGFR 30–59 → 10 mg; eGFR <30 (no dialysis) → 15 mg every other day; dialysis → 5 mg daily (after dialysis on dialysis days). Dose level table: 25 → 20 → 15 → 10 → 5 → 2.5 mg.",
+        levels: [20, 15]
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Starting dose 20 mg weekly for patients ≥75 years. Dose may vary per tolerability. Alternative: 20 mg PO weekly or predniSONE substitution.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "phosphate", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "TSH", "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 hours prior to initial prescription)"
+      ],
+      cycle: [
+        "CBC & Diff", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "phosphate", "LDH", "random glucose",
+        "quantitative beta-hCG (if FCBP)"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 3 months (required for lenalidomide)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "phosphate", "random glucose"]
+        },
+        {
+          label: "Weekly x 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYDARBD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYDARBD - daratumumab + bortezomib + dexamethasone ± cyclophosphamide [Multiple Myeloma — Relapsed/Refractory]",
+    cycle: 28,
+    notes: "Relapsed/refractory multiple myeloma; ≥1 prior line. Requires bortezomib sensitivity (includes post-MYBORMTN relapse). Not for bortezomib-refractory, other PI-refractory, or prior isatuximab-progression patients. Only one line of anti-CD38 monoclonal antibody permitted. Daratumumab: SC preferred (1800 mg fixed dose); IV option available (16 mg/kg). Dosing schedule: Cycles 1–2 weekly, Cycles 3–4 biweekly, Cycle 5+ monthly. Bortezomib/cyclophosphamide given Cycles 1–8. Red cell phenotype/group and screen required before daratumumab. VZV prophylaxis required. Protocol MYDARBD.",
+    drugs: [
+      {
+        name: "daratumumab",
+        dose: 1800,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Cycles 1–2: Days 1, 8, 15, 22 (weekly); Cycles 3–4: Days 1, 15 (biweekly); Cycle 5+: Day 1 (monthly)",
+        reducible: false,
+        note: "SC preferred (1800 mg fixed in 15 mL). IV alternative: 16 mg/kg. Observe 1 hour post-injection on Cycle 1 Day 1. Premedication required (acetaminophen, antihistamine, montelukast, dexamethasone). Daratumumab interferes with blood typing; red cell phenotype must be done before first dose.",
+        levels: null
+      },
+      {
+        name: "bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22 (Cycles 1–8; may start at 1.5 mg/m²)",
+        reducible: true,
+        note: "Cycles 1–8 only. May start at 1.5 mg/m² (dose level 0). Give bortezomib before daratumumab when co-administered. Dose level table: 1.5 → 1.3 → 1.0 → 0.7 → 0.5 mg/m².",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Cycles 1–8: Days 1, 8, 15, 22 (prior to daratumumab); Cycle 9+: optional on weeks when daratumumab is not given",
+        reducible: false,
+        note: "Starting dose 20 mg weekly for patients ≥75 years. Therapeutic dexamethasone serves as premedication steroid in Cycle 1. After Cycle 1, steroid premedication not required for daratumumab. Dose may vary per tolerability.",
+        levels: null
+      },
+      {
+        name: "cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Cycles 1–8: Days 1, 8, 15, 22 (if using); or 50 mg every 2 days (alternative); Cycle 9+: optional at physician's discretion",
+        reducible: true,
+        note: "Optional. Alternative: 50 mg PO every 2 days.",
+        levels: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "Red Blood Cell phenotype and Group and Screen (mark requisition 'patient to start daratumumab')",
+        "CBC & Diff", "creatinine", "sodium", "potassium", "urea", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)", "HCAb", "HBsAg", "HBsAb", "HBcoreAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff", "platelets", "creatinine", "urea", "sodium", "potassium", "total bilirubin",
+        "ALT", "alkaline phosphatase", "calcium", "albumin", "LDH", "random glucose",
+        "serum protein electrophoresis", "serum free light chain levels"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "platelets", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYDARCBDF",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYDARCBDF - Daratumumab + Cyclophosphamide + Bortezomib + Dexamethasone [Newly Diagnosed MM — Transplant Ineligible]",
+    cycle: 28,
+    notes: "Newly diagnosed multiple myeloma, transplant ineligible. Cyclophosphamide may be substituted with melphalan. Patients eligible for only one line of anti-CD38 monoclonal antibody therapy. Exclude AL amyloidosis only (see LYDARCBDF). BC Cancer protocol MYDARCBDF.",
+    drugs: [
+      {
+        name: "Daratumumab",
+        dose: 1800,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Cycles 1–2: Days 1, 8, 15, 22 (weekly); Cycles 3–6: Days 1, 15 (biweekly); Cycle 7+: Day 1 (monthly)",
+        reducible: false,
+        note: "Preferred SC route (1800 mg over 5 min in abdomen). IV alternative: 16 mg/kg. Observe 1 h after first SC injection (Cycle 1 Day 1 only)."
+      },
+      {
+        name: "Bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22 (Cycles 1–9)",
+        reducible: true,
+        note: "May start at 1.5 mg/m². Give before daratumumab on shared days.",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (Cycles 1–9)",
+        reducible: true,
+        note: "Alternative: 50 mg every 2 days. May be substituted with melphalan."
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (Cycles 1–9)",
+        reducible: false,
+        note: "Reduce to 20 mg/week for age ≥75. Used as premedication prior to daratumumab in Cycle 1; not required as premedication after Cycle 1."
+      }
+    ],
+    labs: {
+      baseline: [
+        "Red Blood Cell phenotype, Group and Screen (pre-daratumumab)",
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYDARLDF",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYDARLDF - Daratumumab + Lenalidomide + Dexamethasone [Newly Diagnosed MM — Transplant Ineligible]",
+    cycle: 28,
+    notes: "Newly diagnosed multiple myeloma, transplant ineligible. RevAid registration required for lenalidomide. Patients eligible for only one line of anti-CD38 monoclonal antibody therapy. Patients on prior first-line therapy (pre Jun 2022) may switch if no progression. BC Cancer protocol MYDARLDF.",
+    drugs: [
+      {
+        name: "Daratumumab",
+        dose: 1800,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Cycles 1–2: Days 1, 8, 15, 22 (weekly); Cycles 3–6: Days 1, 15 (biweekly); Cycle 7+: Day 1 (monthly)",
+        reducible: false,
+        note: "Preferred SC route (1800 mg over 5 min in abdomen). IV alternative: 16 mg/kg. Observe 1 h after first SC injection (Cycle 1 Day 1 only)."
+      },
+      {
+        name: "Lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "RevAid program registration required. If missed dose, take at next usual time. If held mid-cycle, stop on Day 21 as scheduled.",
+        levels: [20, 15]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for age ≥75. Used as premedication prior to daratumumab in Cycle 1; not required as premedication after Cycle 1."
+      }
+    ],
+    labs: {
+      baseline: [
+        "Red Blood Cell phenotype, Group and Screen (pre-daratumumab)",
+        "CBC & Diff",
+        "creatinine",
+        "sodium",
+        "potassium",
+        "urea",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 h prior to first prescription)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 4 weeks (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "Every 3 months (required for lenalidomide)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly × 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYDARLD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYDARLD - Daratumumab + Lenalidomide + Dexamethasone ± Cyclophosphamide [Relapsed/Refractory MM]",
+    cycle: 28,
+    notes: "Relapsed/refractory multiple myeloma; ≥1 prior line of therapy. Must be lenalidomide-sensitive (includes relapse after maintenance MYLENMTN). RevAid registration required. Eligible for only one anti-CD38 line. Cyclophosphamide optional Cycles 1–8, discretionary Cycle 9+. BC Cancer protocol MYDARLD.",
+    drugs: [
+      {
+        name: "Daratumumab",
+        dose: 1800,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Cycles 1–2: Days 1, 8, 15, 22 (weekly); Cycles 3–6: Days 1, 15 (biweekly); Cycle 7+: Day 1 (monthly)",
+        reducible: false,
+        note: "Preferred SC route (1800 mg over 5 min in abdomen). IV alternative: 16 mg/kg. Observe 1 h after first SC injection (Cycle 1 Day 1 only)."
+      },
+      {
+        name: "Lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "RevAid program registration required. Dexamethasone continues if lenalidomide held.",
+        levels: [20, 15]
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (Cycles 1–8; optional Cycle 9+)",
+        reducible: true,
+        note: "Optional add-on. Alternative: 50 mg every 2 days. Discretionary from Cycle 9 onwards."
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for age ≥75. Used as premedication prior to daratumumab in Cycle 1 only."
+      }
+    ],
+    labs: {
+      baseline: [
+        "Red Blood Cell phenotype, Group and Screen (pre-daratumumab)",
+        "CBC & Diff",
+        "creatinine",
+        "sodium",
+        "potassium",
+        "urea",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 h prior to first prescription)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 4 weeks (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "Every 3 months (required for lenalidomide)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly × 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYLDREL",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYLDREL - Lenalidomide + Dexamethasone [Relapsed/Refractory MM]",
+    cycle: 28,
+    notes: "Relapsed/refractory multiple myeloma; ≥1 prior line of therapy. Must be lenalidomide-sensitive (includes relapse after MYLENMTN). RevAid registration required. Cyclophosphamide optional add-on. BC Cancer protocol MYLDREL.",
+    drugs: [
+      {
+        name: "Lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21",
+        reducible: true,
+        note: "RevAid program registration required. Dexamethasone continues if lenalidomide held.",
+        levels: [20, 15]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for age ≥75. Continue even if lenalidomide held."
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1, 8, 15, 22 (optional)",
+        reducible: true,
+        note: "Optional add-on per physician discretion to increase response. Alternative: 50 mg every 2 days."
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 h prior to first prescription)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 4 weeks (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "Every 3 months (required)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly × 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYLENMTN",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYLENMTN - Lenalidomide [Maintenance — Post-ASCT]",
+    cycle: 28,
+    notes: "Maintenance therapy for newly diagnosed MM following autologous stem cell transplant (ASCT); minimum stable disease post-transplant. Start 3–4 months post-ASCT. RevAid registration required. Dose may escalate to 15 mg after 3 months if tolerated. BC Cancer protocol MYLENMTN.",
+    drugs: [
+      {
+        name: "Lenalidomide",
+        dose: 10,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–21 (preferred) or Days 1–28 (continuous, per physician discretion)",
+        reducible: true,
+        note: "May escalate to 15 mg after 3 months if ANC >1.0 and platelets >75. Preferred: 21/28-day dosing for majority of patients.",
+        levels: [5, 2.5]
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "quantitative beta-hCG (if FCBP: 7–14 days and 24 h prior to first prescription)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["immunoglobulin panel (IgA, IgG, IgM)", "urine protein electrophoresis", "beta-2 microglobulin"]
+        },
+        {
+          label: "Every 4 weeks (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "Every 3 months (required)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "Weekly × 4 weeks during Cycle 1 (if FCBP)",
+          tests: ["quantitative beta-hCG blood test"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYMPBOR",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYMPBOR - Melphalan + Prednisone + Bortezomib [Newly Diagnosed MM or AL Amyloidosis — Transplant Ineligible]",
+    cycle: 35,
+    notes: "Previously untreated multiple myeloma or AL chain amyloidosis, transplant ineligible. Maximum 9 cycles. Cyclophosphamide may substitute melphalan to reduce myelosuppression. BC Cancer protocol MYMPBOR.",
+    drugs: [
+      {
+        name: "Bortezomib",
+        dose: 1.3,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "SC",
+        days: "Days 1, 8, 15, 22",
+        reducible: true,
+        note: "SC preferred (abdomen or thigh). Maintain ≥72 h between doses. ±1 day flexibility.",
+        levels: [1.0, 0.7]
+      },
+      {
+        name: "Melphalan",
+        dose: 9,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–4",
+        reducible: true,
+        note: "Round dose to nearest 2 mg. May be substituted with cyclophosphamide."
+      },
+      {
+        name: "Prednisone",
+        dose: 60,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–4",
+        reducible: false,
+        note: "Dose may vary based on tolerability and comorbidities."
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Before Day 1 (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Before Day 1 (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYMP",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYMP - Melphalan + Prednisone [MM or AL Amyloidosis]",
+    cycle: 28,
+    notes: "Multiple myeloma or AL chain amyloidosis. Treat up to 1 year or 6 months after plateau phase (whichever shorter). Discontinue when no further response for ≥2 cycles. BC Cancer protocol MYMP.",
+    drugs: [
+      {
+        name: "Melphalan",
+        dose: 9,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–4",
+        reducible: true,
+        note: null
+      },
+      {
+        name: "Prednisone",
+        dose: 100,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO",
+        days: "Days 1–4",
+        reducible: false,
+        note: null
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chain levels",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HBcAb, HBsAg, HBsAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "platelets",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chain levels"]
+        },
+        {
+          label: "Every 4 weeks (optional/encouraged)",
+          tests: ["urine protein electrophoresis", "immunoglobulin panel (IgA, IgG, IgM)", "beta-2 microglobulin"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional mid-cycle)",
+          tests: ["CBC & Diff", "platelets", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load (see SCHBV)"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-MYPAM",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYPAM - Pamidronate [Multiple Myeloma — Bone]",
+    cycle: 28,
+    notes: "Bisphosphonate for MM bone disease. Use when zoledronic acid is contraindicated (renal failure, CrCl <30 mL/min or intolerance to MYZOL). No CAP required when switching from MYZOL. Continue q28d for 24 months (or 12 months post-SCT if VGPR/CR), then stop or switch to q84d at physician discretion.",
+    drugs: [
+      {
+        name: "Pamidronate",
+        dose: 30,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "IV in 250 mL NS over 1 hour",
+        days: "Day 1",
+        reducible: false,
+        note: "Caution if SCr >440 µmol/L or CrCl <30 mL/min. Withhold if creatinine rises >44.2 µmol/L above normal baseline (or >88.4 µmol/L above abnormal baseline) until within 10% of baseline."
+      }
+    ],
+    labs: {
+      baseline: [],
+      cycle: [],
+      conditional: [
+        { label: "Every 12 weeks", tests: ["creatinine"] }
+      ]
+    }
+  },
+  {
+    key: "MY-MYZOL",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "MYZOL - Zoledronic Acid [Multiple Myeloma — Bone]",
+    cycle: 28,
+    notes: "Preferred bisphosphonate for MM bone disease (superior OS vs clodronate). Requires CrCl ≥30 mL/min; use MYPAM if CrCl <30. No CAP required when switching from MYPAM. Continue q28d for 24 months then stop, or q84d beyond 24 months at physician discretion. Dose-adjust for renal function (see dose modifications).",
+    drugs: [
+      {
+        name: "Zoledronic Acid",
+        dose: 4,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "IV in 100 mL NS over 15 minutes",
+        days: "Day 1",
+        reducible: false,
+        note: "Renal dose adjustment: CrCl >60 → 4 mg; 50–60 → 3.5 mg; 40–49 → 3.3 mg; 30–39 → 3 mg; <30 → not recommended (use MYPAM)."
+      }
+    ],
+    labs: {
+      baseline: ["creatinine", "calcium", "albumin"],
+      cycle: ["creatinine"],
+      conditional: [
+        { label: "If clinically indicated", tests: ["calcium", "albumin", "ionized calcium"] }
+      ]
+    }
+  },
+  {
+    key: "MY-UMYISACARD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "UMYISACARD - Isatuximab + Carfilzomib + Dexamethasone ± Cyclophosphamide [Multiple Myeloma — Relapsed/Refractory]",
+    cycle: 28,
+    notes: "Relapsed/refractory MM with ≥1 prior line; CAP approval required. Excludes prior daratumumab progression or carfilzomib refractoriness. Isatuximab (anti-CD38): only one anti-CD38 line permitted. Carfilzomib BSA capped at 2.2 m². Cycle 1 carfilzomib: 20 mg/m² Day 1 then 70 mg/m² Days 8, 15; Cycle 2+: 70 mg/m² Days 1, 8, 15. Isatuximab Cycle 1: Days 1, 8, 15, 22; Cycle 2+: Days 1, 15. Cyclophosphamide optional per physician discretion.",
+    drugs: [
+      {
+        name: "Isatuximab",
+        dose: 10,
+        unit: "mg/kg",
+        basis: "weight",
+        max: null,
+        weightCap: null,
+        route: "IV in 250 mL NS (0.2 µm in-line filter); Cycle 1: Days 1, 8, 15, 22 with rate titration; Cycle 2+: Days 1 and 15 over 30 min",
+        days: "Cycle 1: Days 1, 8, 15, 22; Cycle 2+: Days 1, 15",
+        reducible: false,
+        note: "No dose reductions. Type and screen before starting (CD38 interference with crossmatch). Premedicate with dexamethasone, acetaminophen, loratadine/diphenhydramine, montelukast. IRR in up to 46% of patients, mainly Cycle 1."
+      },
+      {
+        name: "Carfilzomib",
+        dose: 70,
+        unit: "mg/m²",
+        basis: "bsa",
+        max: null,
+        weightCap: null,
+        route: "IV in 100 mL D5W over 30 minutes",
+        days: "Cycle 1: Day 1 (20 mg/m²), Days 8, 15 (70 mg/m²); Cycle 2+: Days 1, 8, 15",
+        reducible: true,
+        note: "BSA capped at 2.2 m². Cycle 1 Day 1 use 20 mg/m² (ramp-up). Dose levels: 0=70, −1=56, −2=45, −3=36, −4=27 mg/m².",
+        levels: [56, 45]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO (preferred) or IV; give 30 min prior to isatuximab on infusion days",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for patients ≥75 years. Also serves as isatuximab premedication."
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22 (OPTIONAL — 500 mg weekly, or 50 mg every 2 days)",
+        reducible: true,
+        note: "Optional; added at physician discretion to increase response. Alternatively 50 mg PO every 2 days. Reduce by 25% if CrCl <10 mL/min."
+      }
+    ],
+    labs: {
+      baseline: [
+        "RBC phenotype and Group & Screen (pre-isatuximab)",
+        "CBC & Diff",
+        "creatinine",
+        "sodium",
+        "potassium",
+        "urea",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "phosphate",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chains",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HCAb",
+        "HBsAg",
+        "HBsAb",
+        "HBcoreAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "phosphate",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (encouraged)",
+          tests: ["serum protein electrophoresis", "serum free light chains"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "phosphate", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-UMYISAPOMD",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "UMYISAPOMD - Isatuximab + Pomalidomide + Dexamethasone ± Cyclophosphamide [Multiple Myeloma — Relapsed/Refractory]",
+    cycle: 28,
+    notes: "Relapsed/refractory MM; prior lenalidomide and proteasome inhibitor required; CAP approval required; RevAid registration required. Excludes daratumumab progression or pomalidomide hypersensitivity. Only one anti-CD38 line permitted. Isatuximab Cycle 1: Days 1, 8, 15, 22; Cycle 2+: Days 1, 15. Pomalidomide 4 mg Days 1–21. Cyclophosphamide optional.",
+    drugs: [
+      {
+        name: "Isatuximab",
+        dose: 10,
+        unit: "mg/kg",
+        basis: "weight",
+        max: null,
+        weightCap: null,
+        route: "IV in 250 mL NS (0.2 µm in-line filter); Cycle 1: Days 1, 8, 15, 22 with rate titration; Cycle 2+: Days 1, 15 over 30 min",
+        days: "Cycle 1: Days 1, 8, 15, 22; Cycle 2+: Days 1, 15",
+        reducible: false,
+        note: "No dose reductions. Type and screen before starting (CD38 interference with crossmatch). Premedicate with dexamethasone, acetaminophen, loratadine/diphenhydramine, montelukast. IRR in up to 46% of patients, mainly Cycle 1."
+      },
+      {
+        name: "Pomalidomide",
+        dose: 4,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, evening preferred",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Dose levels: 0=4 mg, −1=3 mg, −2=2 mg, −3=1 mg. Reduce to 3 mg if CrCl <30 (take after dialysis on dialysis days). Hepatic: mild-mod → 3 mg; severe → 2 mg. RevAid registration required. Teratogenic — avoid in pregnancy.",
+        levels: [3, 2]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO (preferred) or IV; give 30 min prior to isatuximab on infusion days",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for patients ≥75 years. Also serves as isatuximab premedication."
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22 (OPTIONAL — 500 mg weekly, or 50 mg every 2 days)",
+        reducible: true,
+        note: "Optional; added at physician discretion to increase response. Alternatively 50 mg PO every 2 days. Reduce by 25% if CrCl <10 mL/min."
+      }
+    ],
+    labs: {
+      baseline: [
+        "RBC phenotype and Group & Screen (pre-isatuximab)",
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chains",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HCAb",
+        "HBsAg",
+        "HBsAb",
+        "HBcoreAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "beta-hCG (if FCBP: quantitative x2 at 7–14 days and 24 hours before cycle 1)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chains"]
+        },
+        {
+          label: "Every 3 months (required)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Cycle 1 — weekly x4 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-UMYLDF",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "UMYLDF - Lenalidomide + Dexamethasone ± Cyclophosphamide [Multiple Myeloma — Newly Diagnosed, Transplant-Ineligible]",
+    cycle: 28,
+    notes: "Newly diagnosed MM, transplant-ineligible; CAP approval and RevAid registration required. Lenalidomide 25 mg Days 1–21 with dexamethasone 40 mg weekly. Cyclophosphamide optional. Renal dose adjustment for lenalidomide required (CrCl 30–59: 10 mg/d; CrCl <30: 15 mg every other day; dialysis: 5 mg/d after dialysis). Teratogenic; VTE prophylaxis required.",
+    drugs: [
+      {
+        name: "Lenalidomide",
+        dose: 25,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, evening preferred",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Dose levels: 0=25 mg, −1=20 mg, −2=15 mg, −3=10 mg, −4=5 mg, −5=2.5 mg. Renal adjust: CrCl 30–59 → 10 mg/d; CrCl <30 non-dialysis → 15 mg every other day; dialysis → 5 mg after dialysis. RevAid registration required. Teratogenic.",
+        levels: [20, 15]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for patients ≥75 years."
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22 (OPTIONAL — 500 mg weekly, or 50 mg every 2 days)",
+        reducible: true,
+        note: "Optional; added at physician discretion to increase response. Alternatively 50 mg PO every 2 days. Reduce by 25% if CrCl <10 mL/min."
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chains",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HCAb",
+        "HBsAg",
+        "HBsAb",
+        "HBcoreAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "beta-hCG (if FCBP: quantitative x2 at 7–14 days and 24 hours before cycle 1)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "platelets",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chains"]
+        },
+        {
+          label: "Every 3 months (required)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Cycle 1 — weekly x4 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-UMYPOMDEX",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "UMYPOMDEX - Pomalidomide + Dexamethasone ± Cyclophosphamide [Multiple Myeloma — Relapsed/Refractory]",
+    cycle: 28,
+    notes: "Relapsed/refractory MM; prior lenalidomide and proteasome inhibitor required; CAP approval and RevAid registration required. Pomalidomide 4 mg Days 1–21, dexamethasone 40 mg weekly. Cyclophosphamide optional. Renal adjust: CrCl <30 → 3 mg (take after dialysis on dialysis days). Hepatic adjust: mild-mod → 3 mg; severe → 2 mg. Teratogenic; VTE prophylaxis required.",
+    drugs: [
+      {
+        name: "Pomalidomide",
+        dose: 4,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, evening preferred",
+        days: "Days 1–21",
+        reducible: true,
+        note: "Dose levels: 0=4 mg, −1=3 mg, −2=2 mg, −3=1 mg. Renal: CrCl <30 → 3 mg (after dialysis on dialysis days). Hepatic: mild-mod (Child-Pugh A/B) → 3 mg; severe (Child-Pugh C) → 2 mg. RevAid registration required. Teratogenic.",
+        levels: [3, 2]
+      },
+      {
+        name: "Dexamethasone",
+        dose: 40,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22",
+        reducible: false,
+        note: "Reduce to 20 mg/week for patients ≥75 years."
+      },
+      {
+        name: "Cyclophosphamide",
+        dose: 500,
+        unit: "mg",
+        basis: "flat",
+        max: null,
+        weightCap: null,
+        route: "PO, morning preferred",
+        days: "Days 1, 8, 15, 22 (OPTIONAL — 500 mg weekly, or 50 mg every 2 days)",
+        reducible: true,
+        note: "Optional; added at physician discretion. Alternatively 50 mg PO every 2 days. Reduce by 25% if CrCl <10 mL/min."
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "serum protein electrophoresis",
+        "serum free light chains",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HCAb",
+        "HBsAg",
+        "HBsAb",
+        "HBcoreAb",
+        "TSH",
+        "beta-2 microglobulin",
+        "beta-hCG (if FCBP: quantitative x2 at 7–14 days and 24 hours before cycle 1)"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chains"]
+        },
+        {
+          label: "Every 3 months (required)",
+          tests: ["TSH"]
+        },
+        {
+          label: "Cycle 1 — weekly x4 (if FCBP)",
+          tests: ["quantitative beta-hCG"]
+        },
+        {
+          label: "Days 8, 15, 22 (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["HBV viral load"]
+        }
+      ]
+    }
+  },
+  {
+    key: "MY-UMYTEC",
+    cat: "Multiple Myeloma",
+    bcc: true,
+    name: "UMYTEC - Teclistamab [Multiple Myeloma — Relapsed/Refractory, Triple-Class Exposed]",
+    cycle: 28,
+    notes: "Relapsed/refractory MM; ≥3 prior lines required including proteasome inhibitor, IMiD, and anti-CD38 antibody; CAP approval required. BCMA×CD3 bispecific antibody given SC with mandatory step-up dosing (0.06 → 0.3 → 1.5 mg/kg). Inpatient monitoring required for first 3 doses (Cycle 1 Days 1, 3, 5). No dose reductions; delays only. CRS and ICANS monitoring mandatory. Dose escalation required after treatment interruption >28 days. Extensive infection prophylaxis required.",
+    drugs: [
+      {
+        name: "Teclistamab — Step-up dose 1",
+        dose: 0.06,
+        unit: "mg/kg",
+        basis: "weight",
+        max: null,
+        weightCap: null,
+        route: "Subcutaneous (abdomen or thigh); doses >2 mL as two separate injections",
+        days: "Cycle 1, Day 1 only",
+        reducible: false,
+        note: "Mandatory step-up dose. Premedicate with dexamethasone 16 mg, loratadine 20 mg, acetaminophen 650–975 mg. Hospitalize for ≥48 hours after injection. Monitor for CRS and ICANS."
+      },
+      {
+        name: "Teclistamab — Step-up dose 2",
+        dose: 0.3,
+        unit: "mg/kg",
+        basis: "weight",
+        max: null,
+        weightCap: null,
+        route: "Subcutaneous (abdomen or thigh); doses >2 mL as two separate injections",
+        days: "Cycle 1, Day 3 (may give Day 3–7 after step-up dose 1)",
+        reducible: false,
+        note: "Mandatory step-up dose. Premedicate with dexamethasone 16 mg, loratadine 20 mg, acetaminophen 650–975 mg. Hospitalize for ≥48 hours after injection. Monitor for CRS and ICANS."
+      },
+      {
+        name: "Teclistamab",
+        dose: 1.5,
+        unit: "mg/kg",
+        basis: "weight",
+        max: null,
+        weightCap: null,
+        route: "Subcutaneous (abdomen or thigh); doses >2 mL as two separate injections",
+        days: "Cycle 1 Day 5 (first treatment dose); Cycle 2+: Days 1, 8, 15, 22",
+        reducible: false,
+        note: "No dose reductions recommended. Hold for CRS ≥Gr1, ICANS ≥Gr1, active infection, ANC <0.5×10⁹/L, or platelets <25×10⁹/L. After Cycle 1, can administer in ambulatory setting if no ≥Gr2 reactions. May reduce to Q2W (Days 1 and 15) after CR ≥6 months. Premedications required if CRS with prior dose."
+      }
+    ],
+    labs: {
+      baseline: [
+        "CBC & Diff",
+        "creatinine",
+        "sodium",
+        "potassium",
+        "urea",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose",
+        "magnesium",
+        "phosphate",
+        "ferritin",
+        "C-reactive protein",
+        "ICANS assessment (ICE score)",
+        "serum protein electrophoresis",
+        "serum free light chains",
+        "immunoglobulin panel (IgA, IgG, IgM)",
+        "HCAb",
+        "HBsAg",
+        "HBsAb",
+        "HBcoreAb",
+        "beta-2 microglobulin"
+      ],
+      cycle: [
+        "CBC & Diff",
+        "creatinine",
+        "urea",
+        "sodium",
+        "potassium",
+        "total bilirubin",
+        "ALT",
+        "alkaline phosphatase",
+        "calcium",
+        "albumin",
+        "LDH",
+        "random glucose"
+      ],
+      conditional: [
+        {
+          label: "Cycle 1 — prior to each dose",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "calcium", "magnesium", "phosphate", "ALT", "alkaline phosphatase", "total bilirubin", "albumin", "LDH", "vital signs"]
+        },
+        {
+          label: "From Cycle 3 onwards, every 4 weeks (required)",
+          tests: ["serum protein electrophoresis", "serum free light chains"]
+        },
+        {
+          label: "Days 8, 15, 22 — Cycles 2+ (optional — if cytopenias, hypercalcemia, hepatic/renal dysfunction, or steroid-induced diabetes a concern)",
+          tests: ["CBC & Diff", "creatinine", "sodium", "potassium", "total bilirubin", "ALT", "alkaline phosphatase", "calcium", "albumin", "random glucose"]
+        },
+        {
+          label: "If clinically indicated",
+          tests: ["phosphate", "magnesium", "HBV viral load"]
+        }
+      ]
+    }
   },
 
   // =========================================================
